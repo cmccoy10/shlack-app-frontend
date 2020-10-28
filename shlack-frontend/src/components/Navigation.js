@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 const Navigation = () => (
   <>
     <NavLink exact to='/' className='is-active'>
-      Movies
+      {/* Main page */}
     </NavLink>
     <NavLink exact to='/login' className='is-active'>
       Log In

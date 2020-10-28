@@ -3,7 +3,6 @@ import { Route, Switch } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import LoginForm from './components/LoginForm';
 import SignUpForm from './components/SignUpForm';
-import MoviesTable from './components/MoviesTable';
 import Navigation from './components/Navigation';
 
 
