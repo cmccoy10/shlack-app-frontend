@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { login } from '../store/authentication';
+import { login } from '../store/actions/authentication';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('demo@example.com');

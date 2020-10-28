@@ -1,9 +1,7 @@
-import { baseUrl } from '../config/config';
-
-const TOKEN_KEY = 'shlack/authentication/token';
-const SET_TOKEN = 'shlack/authentication/SET_TOKEN';
-const REMOVE_TOKEN = 'shlack/authentication/REMOVE_TOKEN';
-
+import { baseUrl } from '../../config/config';
+export const TOKEN_KEY = "pokedex/authentication/token";
+export const SET_TOKEN = 'shlack/authentication/SET_TOKEN';
+export const REMOVE_TOKEN = 'shlack/authentication/REMOVE_TOKEN';
 export const removeToken = (token) => ({ type: REMOVE_TOKEN });
 export const setToken = (token) => ({ type: SET_TOKEN, token });
 
@@ -21,7 +19,7 @@ export const signUp = (user) => async (dispatch) => {
     body: JSON.stringify(user),
   });
   if (response.ok) {
-    const token = await response.json();
+    const { token } = await response.json();
     window.localStorage.setItem(TOKEN_KEY, token);
     dispatch(setToken(token));
   }
@@ -55,23 +53,3 @@ export const logout = () => async (dispatch, getState) => {
     dispatch(removeToken());
   }
 };
-
-export default function reducer(state = {}, action) {
-  switch (action.type) {
-    case SET_TOKEN: {
-      return {
-        ...state,
-        token: action.token,
-      };
-    }
-
-    case REMOVE_TOKEN: {
-      const newState = { ...state };
-      delete newState.token;
-      return newState;
-    }
-
-    default:
-      return state;
-  }
-}
