@@ -1,5 +1,5 @@
 import { baseUrl } from '../../config/config';
-export const TOKEN_KEY = "pokedex/authentication/token";
+export const TOKEN_KEY = "shlack/authentication/token";
 export const SET_TOKEN = 'shlack/authentication/SET_TOKEN';
 export const REMOVE_TOKEN = 'shlack/authentication/REMOVE_TOKEN';
 export const removeToken = (token) => ({ type: REMOVE_TOKEN });
