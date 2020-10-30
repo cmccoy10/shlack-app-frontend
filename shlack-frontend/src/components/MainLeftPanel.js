@@ -3,13 +3,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import { AppBar, Toolbar, IconButton, Typography, Box, Avatar, Grid } from "@material-ui/core";
 import { useSelector } from 'react-redux';
 import ChannelList from './ChannelList';
-
+import GroupList from "./GroupList";
 
 const useStyles = makeStyles((theme) => ({
   sidePanel: {
     background: "#303E4D",
-    width: "20vw",
-    height: "100vh",
   },
   panelHeader: {
     borderTop: "thin solid #45515f",
@@ -27,6 +25,9 @@ const MainLeftPanel = () => {
       </Grid>
       <Grid container>
         <ChannelList />
+      </Grid>
+      <Grid container>
+        <GroupList />
       </Grid>
     </div>
   );

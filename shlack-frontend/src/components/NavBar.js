@@ -10,7 +10,8 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: theme.typography,
     background: theme.palette.secondary.main,
     fontSize: theme.typography.h3,
-    color: "#FFFFFF"
+    color: "#FFFFFF",
+    height: "7vh"
   },
   title: {
     fontSize: theme.typography.h3,
