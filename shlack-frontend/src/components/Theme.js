@@ -1,9 +1,11 @@
 import React from 'react';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core';
+const latoRegular =  "'Lato', sans-serif";
+
 
 const theme = createMuiTheme({
   background: '#2C3849',
-  fontFamily: "Roboto",
+  fontFamily: latoRegular,
   palette: {
     primary: {
       main: '#FFFFFF',
@@ -13,11 +15,13 @@ const theme = createMuiTheme({
     }
   },
   typography: {
-    fontFamily: "Roboto"
+    fontFamily: latoRegular,
+    color: "#FFFFFF"
   }
 });
 
 const Theme = props => {
+  console.log(theme)
   return (
     <ThemeProvider theme={theme}>
       {props.children}

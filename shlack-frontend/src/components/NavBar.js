@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 const useStyles = makeStyles((theme) => ({
   navbar: {
     fontFamily: theme.typography,
-    background: theme.background,
+    background: theme.palette.secondary.main,
     fontSize: theme.typography.h3,
     color: "#FFFFFF"
   },
