@@ -44,7 +44,7 @@ const App = ({ needLogin, loadToken, socket }) => {
 
     // Adds incoming message to the store
     socket.on(currentChannel, (message) => {
-      console.log(message)
+      console.log("incoming message", message)
       // console.log(
       //   `Recieved new message for ${channel}: ${message}`
       // );

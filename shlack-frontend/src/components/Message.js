@@ -4,36 +4,54 @@ import { AppBar, Toolbar, IconButton, Typography, Box, Avatar, Grid, Paper } fro
 import { useSelector } from 'react-redux';
 import moment from 'moment';
 
-// const useStyles = makeStyles((theme) => ({
-//   outerDiv: {
-//     display: "flex",
-
-//   }
-// }));
+const useStyles = makeStyles((theme) => ({
+  messageBox: {
+    marginLeft: "2em",
+    minHeight: "auto"
+  },
+  messageContent: {
+    padding: ".3em"
+  },
+  messageImg: {
+    marginRight: ".5em"
+  },
+  messageFullName: {
+    paddingRight: ".3em"
+  },
+  messageDate:{
+    fontSize: ".8rem",
+    marginTop: ".25em"
+  },
+  messageBody: {
+    minHeight: "auto"
+  }
+}));
 
 const Message = (props) => {
   const message = props.message;
   const date = moment(message.createdAt).format('hh:mm:ss')
-  // const classes = useStyle();
+  const classes = useStyles();
   return (
-    <Box display="flex" justifyContent="flex-start">
-      <Box display="flex" flexDirection="row">
-        <Box>
-          <Avatar variant="rounded" alt="user icon" src="https://miro.medium.com/fit/c/262/262/1*hLKzSxjViHNOYdum_hkmwg.jpeg"/>
+    <Box className={classes.messageBox} display="flex" justifyContent="flex-start">
+      <Box className={classes.messageContent} display="flex" flexDirection="row">
+        <Box className={classes.messageImg}>
+          <Avatar variant="rounded" alt="user icon" src={message.imgUrl}/>
         </Box>
         <Box display="flex" flexDirection="column">
           <Box display="flex" flexDirection="row">
-            <Box>
-              {message.fullName}
+            <Box className={classes.messageFullName}>
+              <Typography fontWeight="fontWeightBold">
+                {message.fullName}
+              </Typography>
             </Box>
             <Box>
-              <Typography>
-                {date}
+              <Typography fontWeight="fontWeightLight" variant="subtitle2" className={classes.messageDate} >
+                {date.slice(0,5)}
               </Typography>
             </Box>
           </Box>
           <Box>
-            <Typography>
+            <Typography >
               {message.body}
             </Typography>
           </Box>

@@ -19,7 +19,8 @@ const useStyles = makeStyles((theme) => ({
   },
   messageContainer: {
     height: "62vh",
-    border: "thin solid black"
+    border: "thin solid black",
+    overflow: "auto"
   },
   textContainer: {
     height: "20vh",
@@ -27,7 +28,13 @@ const useStyles = makeStyles((theme) => ({
   },
   textBox: {
     width: "50em"
-  }
+  },
+  list: {
+    width: 250,
+  },
+  fullList: {
+    width: 'auto',
+  },
 }))
 
 const MainChat = () => {
@@ -38,6 +45,12 @@ const MainChat = () => {
   const socket = useContext(SocketContext);
   const classes = useStyles();
   const [body, setBody] = useState("");
+  const [state, setState] = React.useState({
+    top: false,
+    left: false,
+    bottom: false,
+    right: false,
+  });
 
   useEffect(() => {
     if (messageElement.current) {
@@ -101,7 +114,7 @@ const MainChat = () => {
       <Grid item className={classes.messageContainer}>
         {messages.map(message => {
           return (
-            <Message message={message}/>
+            <Message key={message.id} message={message}/>
           )
         })}
       </Grid>

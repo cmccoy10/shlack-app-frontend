@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, IconButton, Typography, Box, Avatar, Grid, Paper } from "@material-ui/core";
 import MainChat from './MainChat';
 
+
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
     display: "flex",

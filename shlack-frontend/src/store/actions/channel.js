@@ -8,6 +8,7 @@ export const SET_MESSAGES = 'SET_MESSAGES';
 export const ADD_CHANNELS = "ADD_CHANNELS";
 export const SET_CURRENT_CHANNEL = "SET_CURRENT_CHANNEL";
 export const ADD_JOINED_CHANNEL = "ADD_JOINED_CHANNEL";
+export const EDIT_CHANNEL = "EDIT_CHANNEL";
 
 export const load = (channelList) => ({ type: LOAD, channelList });
 export const hideForm = () => ({ type: HIDE_FORM });
@@ -18,6 +19,13 @@ export const addChannels = (channels) => {
     type: ADD_CHANNELS,
     channels,
   };
+}
+
+export const editChannel = (channel) => {
+  return {
+    type: EDIT_CHANNEL,
+    channel
+  }
 }
 
 export const setCurrentChannel = (channel) => {
@@ -64,6 +72,26 @@ export const getChannels = () => async (dispatch, getState) => {
     },
   })
 
+  if (response.ok) {
+    const channelList = await response.json();
+    dispatch(load(channelList));
+  }
+}
+
+export const modifyChannel = data => async (dispatch, getState) => {
+  const id = window.localStorage.getItem(USER_ID);
+  const {
+    authentication: { token }
+  } = getState();
+  data.userId = id;
+  const response = await fetch(`${baseUrl}/channels`, {
+    method: 'put',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  });
   if (response.ok) {
     const channelList = await response.json();
     dispatch(load(channelList));

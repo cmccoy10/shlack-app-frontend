@@ -43,7 +43,6 @@ const ChannelList = () => {
   const token = useSelector((state) => state.authentication.token);
   const formVisible = useSelector((state) => state.channel.formVisible);
   const channels = useSelector((state) => state.channel.channelList);
-  // const currentChannel = useSelector((state) => state.channels.currentChannel);
 
   const joinChannel = (channel) => {
     dispatch(setCurrentChannel(channel));
