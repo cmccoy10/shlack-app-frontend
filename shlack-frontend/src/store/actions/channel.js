@@ -5,24 +5,33 @@ export const SHOW_FORM = 'channel/authentication/SHOW_FORM';
 export const LOAD = "shlack/channels/LOAD";
 export const ADD_MESSAGE = 'ADD_MESSAGE';
 export const SET_MESSAGES = 'SET_MESSAGES';
+export const ADD_CHANNELS = "ADD_CHANNELS";
+export const SET_CURRENT_CHANNEL = "SET_CURRENT_CHANNEL";
+export const ADD_JOINED_CHANNEL = "ADD_JOINED_CHANNEL";
+
 export const load = (channelList) => ({ type: LOAD, channelList });
 export const hideForm = () => ({ type: HIDE_FORM });
 export const showForm = () => ({ type: SHOW_FORM });
 
-
-export const addChannelMessage = (message) => {
-    return ({
-        type: ADD_MESSAGE,
-        message
-    });
+export const addChannels = (channels) => {
+  return {
+    type: ADD_CHANNELS,
+    channels,
+  };
 }
 
-export const setChannelMessages = (messages, channel) => {
-    return ({
-        type: SET_MESSAGES,
-        messages,
+export const setCurrentChannel = (channel) => {
+    return {
+        type: SET_CURRENT_CHANNEL,
         channel
-    });
+    };
+}
+
+export const addJoinedChannel = (channel) => {
+    return {
+        type: ADD_JOINED_CHANNEL,
+        channel
+    }
 }
 
 export const createChannel = data => async (dispatch, getState) => {
@@ -54,6 +63,7 @@ export const getChannels = () => async (dispatch, getState) => {
       Authorization: `Bearer ${token}`,
     },
   })
+
   if (response.ok) {
     const channelList = await response.json();
     dispatch(load(channelList));

@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import AddIcon from '@material-ui/icons/Add';
 import ChannelForm from './ChannelForm';
 import { useDispatch } from 'react-redux';
-import { getChannels, showForm } from '../store/actions/channel';
+import { getChannels, showForm, setCurrentChannel } from '../store/actions/channel';
 import { useEffect } from 'react';
 import { Route, useParams, Link } from 'react-router-dom';
 
@@ -42,7 +42,12 @@ const ChannelList = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.authentication.token);
   const formVisible = useSelector((state) => state.channel.formVisible);
-  const channels = useSelector((state) => state.channel.channelList)
+  const channels = useSelector((state) => state.channel.channelList);
+  // const currentChannel = useSelector((state) => state.channels.currentChannel);
+
+  const joinChannel = (channel) => {
+    dispatch(setCurrentChannel(channel));
+  }
 
   useEffect(() => {
     dispatch(getChannels());
@@ -52,6 +57,7 @@ const ChannelList = () => {
   if (!channels) {
     return null;
   }
+
   return (
     <Grid container>
       <Grid container direction="row" justify="space-between" alignItems="center" className={classes.panelHeader}>
@@ -75,7 +81,7 @@ const ChannelList = () => {
         <List component="nav" className={classes.root} aria-label="mailbox folders">
           {channels.map(channel => {
             return (
-              <ListItem button key={channel.id} className={classes.channelDiv} >
+              <ListItem button key={channel.id} onClick={() => joinChannel(channel.id)} className={classes.channelDiv} >
                 <Link to={`/channels/${channel.id}`} className={classes.navLink}>
                   <ListItemText className={classes.channelText} primary={`# ${channel.title}`} />
                   <Divider/>

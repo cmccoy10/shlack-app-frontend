@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 import { AppBar, Toolbar, IconButton, Typography, Box, Avatar, Grid, Paper } from "@material-ui/core";
 import { useSelector } from 'react-redux';
-
+import moment from 'moment';
 
 // const useStyles = makeStyles((theme) => ({
 //   outerDiv: {
@@ -12,23 +12,30 @@ import { useSelector } from 'react-redux';
 // }));
 
 const Message = (props) => {
+  const message = props.message;
+  const date = moment(message.createdAt).format('hh:mm:ss')
   // const classes = useStyle();
   return (
-    <Box display="flex" justifyContent="flex-start"> //outer div
-      <Box display="flex" flexDirection="row"> //div containing content
-        <Box> //avatar div
+    <Box display="flex" justifyContent="flex-start">
+      <Box display="flex" flexDirection="row">
+        <Box>
           <Avatar variant="rounded" alt="user icon" src="https://miro.medium.com/fit/c/262/262/1*hLKzSxjViHNOYdum_hkmwg.jpeg"/>
         </Box>
-        <Box display="flex" flexDirection="column"> //message div
-          <Box display="flex" flexDirection="row">//name and date
-            <Box> //fullname
+        <Box display="flex" flexDirection="column">
+          <Box display="flex" flexDirection="row">
+            <Box>
+              {message.fullName}
             </Box>
-            <Box> //date
-
+            <Box>
+              <Typography>
+                {date}
+              </Typography>
             </Box>
           </Box>
-          <Box> //message
-
+          <Box>
+            <Typography>
+              {message.body}
+            </Typography>
           </Box>
         </Box>
       </Box>
