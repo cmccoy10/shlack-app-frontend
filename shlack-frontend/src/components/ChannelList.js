@@ -50,7 +50,7 @@ const ChannelList = () => {
 
   useEffect(() => {
     dispatch(getChannels());
-  }, []);
+  }, [dispatch]);
 
   const classes = useStyles();
   if (!channels) {

@@ -12,7 +12,8 @@ const useStyles = makeStyles((theme) => ({
   panelHeader: {
     borderTop: "thin solid #45515f",
     borderBottom: "thin solid #45515f",
-    height: "5em"
+    height: "5em",
+    paddingLeft: "1em"
   }
 }));
 
@@ -20,8 +21,8 @@ const MainLeftPanel = () => {
   const classes = useStyles();
   return (
     <div className={classes.sidePanel} >
-      <Grid container direction="row" justify="center" alignItems="center" className={classes.panelHeader}>
-        <Typography variant="h6" color="primary" fontWeight="700" >Shlack</Typography>
+      <Grid container direction="row" justify="flex-start" alignItems="center" className={classes.panelHeader}>
+        <Typography variant="h5" color="primary" fontWeight="800" >Shlack</Typography>
       </Grid>
       <Grid container>
         <ChannelList />

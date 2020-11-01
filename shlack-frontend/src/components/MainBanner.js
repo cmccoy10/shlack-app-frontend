@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from "@material-ui/core/styles";
-import { AppBar, Toolbar, IconButton, Typography, Box, Avatar, Grid, Paper } from "@material-ui/core";
+import { AppBar, Toolbar, IconButton, Typography, Box, Avatar, Grid, Paper, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField } from "@material-ui/core";
 import { useSelector, useDispatch } from 'react-redux';
 import clsx from 'clsx';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
@@ -15,13 +15,15 @@ import MailIcon from '@material-ui/icons/Mail';
 import InfoIcon from '@material-ui/icons/Info';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import { useEffect } from 'react';
-import { getChannels } from '../store/actions/channel';
+import { getCurrentChannel, modifyChannel, deleteChannel } from '../store/actions/channel';
 import MenuIcon from '@material-ui/icons/Menu';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import CloseIcon from '@material-ui/icons/Close';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { logout } from '../store/actions/authentication';
+import { useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   bannerContainer: {
@@ -29,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     borderTop: "thin solid #45515f",
     borderBottom: "thin solid #45515f",
     height: "5em",
-    border: "thin solid black"
+    borderBottom: "thin solid #45515f",
   },
   panelHeader: {
     background: "#303E4D",
@@ -47,25 +49,70 @@ const useStyles = makeStyles((theme) => ({
   channel: {
     display: "flex",
     flexDirection: "column",
+    justifyContent: "flex-start"
   },
   closeButton: {
     marginLeft: "8em"
-  }
+  },
+  button: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.delete.main,
+    color: "white"
+  },
 }));
 
-const MainBanner = () => {
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(getChannels());
-  // }, []);
+const MainBanner = (props) => {
+  const dispatch = useDispatch();
 
-  // const channelList = useSelector((state) => state.channel.channelList);
-  // const channelId = useSelector((state) => state.channel.currentChannel);
+  // const { id } = useParams();
+  // console.log("params id", id)
+  // const paramsId = id;
 
-  // useEffect(() => {
+  const channelId = useSelector((state) => state.channel.currentChannel);
+  const currentChannel = useSelector((state) => state.channel.oneChannel);
+  const [channelFormDisplay, setChannelFormDisplay] = React.useState(false);
+  const [deleteFormDisplay, setDeleteFormDisplay] = React.useState(false);
+  const [inputTitle, setInputTitle] = React.useState('');
+  const [inputTopic, setInputTopic] = React.useState('');
 
-  // }, []);
 
+
+  useEffect(() => {
+    dispatch(getCurrentChannel(channelId))
+  }, [channelId]);
+
+  const handleChannelTitleChange = e => setInputTitle(e.target.value)
+  const handleChannelTopicChange = e => setInputTopic(e.target.value)
+
+  const handleChannelForm = () => {
+    setChannelFormDisplay(true);
+  };
+  const handleChannelFormClose = () => {
+    setChannelFormDisplay(false);
+  };
+
+  const handleChannelCreate = () => {
+    dispatch(modifyChannel({
+      id: channelId,
+      title: inputTitle,
+      topic: inputTopic,
+    }))
+    setChannelFormDisplay(false);
+  }
+
+  const handleDeleteForm = () => {
+    setDeleteFormDisplay(true);
+  };
+  const handleDeleteFormClose = () => {
+    setDeleteFormDisplay(false);
+  };
+
+  const handleChannelDelete = () => {
+    dispatch(deleteChannel({
+      id: channelId,
+    }))
+    setDeleteFormDisplay(false);
+  }
 
   const classes = useStyles();
   const [state, setState] = React.useState({
@@ -93,6 +140,9 @@ const MainBanner = () => {
     toggleDrawer("right", false);
   };
 
+  const handleLogOut = () => {
+    dispatch(logout());
+  };
 
   const list = (anchor) => (
     <div
@@ -117,7 +167,7 @@ const MainBanner = () => {
         </ListItem>
         <ListItem >
           <ListItemIcon>
-            <IconButton backgroundColor="white" >
+            <IconButton backgroundColor="white" onClick={handleChannelForm}>
               <EditIcon/>
             </IconButton>
           </ListItemIcon>
@@ -125,7 +175,7 @@ const MainBanner = () => {
         </ListItem>
         <ListItem >
           <ListItemIcon>
-            <IconButton backgroundColor="white" >
+            <IconButton backgroundColor="white" onClick={handleDeleteForm}>
               <DeleteIcon/>
             </IconButton>
           </ListItemIcon>
@@ -143,52 +193,146 @@ const MainBanner = () => {
         </Menu>
       </List>
       <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem >
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
+      <ListItem >
+          <ListItemIcon>
+            <Button color="secondary" onClick={handleLogOut}>Log Out</Button>
+          </ListItemIcon>
+        </ListItem>
     </div>
   );
 
   return (
-    <Grid container className={classes.bannerContainer} >
-      <Box flexGrow={1}>
-        <Box className={classes.channel}>
-          <Box>
-            <Typography>title</Typography>
-          </Box>
-          <Box>
-            <Typography>topic</Typography>
+    <Box>
+      {currentChannel ?
+      <Grid container className={classes.bannerContainer} >
+        <Box flexGrow={1} >
+          <Box className={classes.channel} display="flex" alignContent="center">
+            <Box>
+              <Typography variant="subtitle1">{currentChannel.title}</Typography>
+            </Box>
+            <Box>
+              <Typography variant="subtitle2">{currentChannel.topic}</Typography>
+            </Box>
           </Box>
         </Box>
-      </Box>
-      <Box className={classes.buttons}>
-        <IconButton backgroundColor="white" >
-          <PersonAddIcon/>
-        </IconButton>
-        {['right'].map((anchor) => (
-          <Box key={anchor} display="flex" alignContent="center">
-            <Box display="flex" alignContent="center">
-              <IconButton backgroundColor="white" onClick={toggleDrawer(anchor, true)}>
-                <InfoIcon/>
-              </IconButton>
+        <Box className={classes.buttons}>
+          <IconButton backgroundColor="white" >
+            <PersonAddIcon/>
+          </IconButton>
+          {['right'].map((anchor) => (
+            <Box key={anchor} display="flex" alignContent="center">
+              <Box display="flex" alignContent="center">
+                <IconButton backgroundColor="white" onClick={toggleDrawer(anchor, true)}>
+                  <InfoIcon/>
+                </IconButton>
+              </Box>
+              <SwipeableDrawer
+                anchor={anchor}
+                open={state[anchor]}
+                onClose={toggleDrawer(anchor, false)}
+                onOpen={toggleDrawer(anchor, true)}
+              >
+                {list(anchor)}
+              </SwipeableDrawer>
             </Box>
-            <SwipeableDrawer
-              anchor={anchor}
-              open={state[anchor]}
-              onClose={toggleDrawer(anchor, false)}
-              onOpen={toggleDrawer(anchor, true)}
-            >
-              {list(anchor)}
-            </SwipeableDrawer>
+          ))}
+        </Box>
+      </Grid>
+
+      :
+
+      <Grid container className={classes.bannerContainer} >
+        <Box flexGrow={1}>
+          <Box className={classes.channel} display="flex" justifyContent="center">
+            <Box>
+              <Typography>Click on a channel on the left panel.</Typography>
+            </Box>
           </Box>
-        ))}
+        </Box>
+        <Box className={classes.buttons}>
+          {['right'].map((anchor) => (
+            <Box key={anchor} display="flex" alignContent="center">
+              <Box display="flex" alignContent="center">
+                <IconButton backgroundColor="white" onClick={toggleDrawer(anchor, true)}>
+                  <InfoIcon/>
+                </IconButton>
+              </Box>
+              <SwipeableDrawer
+                anchor={anchor}
+                open={state[anchor]}
+                onClose={toggleDrawer(anchor, false)}
+                onOpen={toggleDrawer(anchor, true)}
+              >
+                {list(anchor)}
+              </SwipeableDrawer>
+            </Box>
+          ))}
+        </Box>
+      </Grid>
+      }
+      <Box>
+        <Dialog open={channelFormDisplay} onClose={handleChannelFormClose} aria-labelledby="form-dialog-title">
+          <DialogTitle id="form-dialog-title">Edit Your Channel</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              To edit a channel, please enter ther channel's info here.
+            </DialogContentText>
+            <TextField
+              error={inputTitle === ''}
+              autoFocus
+              margin="dense"
+              id="title"
+              label="Channel Title"
+              type="text"
+              fullWidth
+              value={inputTitle}
+              onChange={handleChannelTitleChange}
+            />
+            <TextField
+              margin="dense"
+              id="topic"
+              label="Channel Topic"
+              type="text"
+              fullWidth
+              value={inputTopic}
+              onChange={handleChannelTopicChange}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleChannelFormClose} color="black">
+              Cancel
+            </Button>
+            <Button onClick={handleChannelCreate} disabled={inputTitle === ''} color="black">
+              Create
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Box>
-    </Grid>
+      <Box>
+        <Dialog open={deleteFormDisplay} onClose={handleDeleteFormClose} aria-labelledby="form-dialog-title">
+          <DialogTitle id="form-dialog-title">Delete Your Channel</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Are you sure you want to delete your channel?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleDeleteFormClose} color="black">
+              Cancel
+            </Button>
+            <Button
+              onClick={handleChannelDelete}
+              variant="contained"
+              color="delete"
+              className={classes.button}
+              startIcon={<DeleteIcon />}
+            >
+              Delete
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Box>
+    </Box>
   );
 };
 

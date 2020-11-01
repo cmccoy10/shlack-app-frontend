@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { createChannel, hideForm } from '../store/actions/channel';
 import { useState } from 'react';
 import { makeStyles } from "@material-ui/core/styles";
-import { AppBar, Toolbar, IconButton, Typography, Button, Box, Avatar, Grid, TextField } from "@material-ui/core";
+import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Box, Avatar, Grid, TextField } from "@material-ui/core";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -39,13 +39,24 @@ function ChannelForm(props) {
   const [topic, setTopic] = useState("");
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const [channelFormDisplay, setChannelFormDisplay] = React.useState(false);
+
+  const handleChannelInputChange = e => setTitle(e.target.value)
+  const handleChannelAvatarInputChange = e => setTopic(e.target.value)
+
+  const handleChannelForm = () => {
+    setChannelFormDisplay(true);
+  };
+  const handleChannelFormClose = () => {
+    setChannelFormDisplay(false);
+  };
+  const handleChannelCreate = () => {
     const payload = {
       title,
       topic,
     };
     dispatch(createChannel(payload));
+    setChannelFormDisplay(false);
   }
 
   const updateProperty = (callback) => (e) => {
@@ -54,47 +65,42 @@ function ChannelForm(props) {
 
   const classes = useStyles();
   return (
-    <Grid container alignItems="stretch" alignItems="center" justify="center" className={classes.formContainer}>
-      <form onSubmit={handleSubmit}>
-        <Grid item>
-          <Grid container direction="column" justify="center" alignItems="center" justify="space-between" alignContent="space-between">
-            <Grid item>
-              <Typography variant="h6" className={classes.formHeader}>
-                New Channel
-              </Typography>
-            </Grid>
-            <Grid item>
-              <TextField
-                required
-                label="Title"
-                defaultValue="Enter a title"
-                value={title}
-                onChange={updateProperty(setTitle)}
-                className={classes.formInputs}
-              />
-            </Grid>
-            <Grid item>
-              <TextField
-                label="Topic"
-                defaultValue="Enter a topic"
-                variant="outlined"
-                value={topic}
-                multiline
-                rows={4}
-                onChange={updateProperty(setTopic)}
-                className={classes.formInputs}
-              />
-            </Grid>
-            <Grid item direction="row">
-              <Button className={classes.margin} variant="contained" size="small" type="submit">Create Channel</Button>
-              <Button className={classes.margin} variant="contained" size="small" type="button" onClick={() => dispatch(hideForm())}>
-                Cancel
-              </Button>
-            </Grid>
-          </Grid>
-        </Grid>
-      </form>
-    </Grid>
+    <Dialog open={channelFormDisplay} onClose={handleChannelFormClose} aria-labelledby="form-dialog-title">
+      <DialogTitle id="form-dialog-title">Create Your Channel</DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          Please enter a Channel title and topic.
+        </DialogContentText>
+        <TextField
+          error={title === ''}
+          autoFocus
+          margin="dense"
+          id="channelName"
+          label="Channel Name"
+          type="text"
+          fullWidth
+          value={title}
+          onChange={setTitle}
+        />
+        <TextField
+          margin="dense"
+          id="channelAvatar"
+          label="Channel Avatar Url"
+          type="text"
+          fullWidth
+          value={topic}
+          onChange={setTopic}
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleChannelFormClose} color="primary">
+          Cancel
+        </Button>
+        <Button onClick={handleChannelCreate} disabled={title === ''} color="primary">
+          Create
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 }
 

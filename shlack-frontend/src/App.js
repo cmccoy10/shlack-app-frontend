@@ -1,7 +1,7 @@
 import React, { useState, useEffect, } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect, Route, Switch } from 'react-router';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, useParams } from 'react-router-dom';
 import LoginForm from './components/LoginForm';
 import SignUpForm from './components/SignUpForm';
 import NavBar from './components/NavBar';
@@ -15,7 +15,7 @@ import { loadToken } from './store/actions/authentication';
 import SocketContext from './SocketContext';
 import { addMessage } from './store/actions/channelMessages';
 import { addJoinedChannel } from "./store/actions/channel";
-
+import { createMemoryHistory } from 'history';
 
 const App = ({ needLogin, loadToken, socket }) => {
   const [loaded, setLoaded] = useState(false);
@@ -63,6 +63,9 @@ const App = ({ needLogin, loadToken, socket }) => {
     loadToken();
   }, []);
 
+  // let { id } = useParams();
+  // console.log(id)
+
   if (!loaded) {
     return null;
   }
@@ -76,8 +79,8 @@ const App = ({ needLogin, loadToken, socket }) => {
         <ProtectedRoute path='/login' exact={true} needLogin={needLogin} component={LoginForm} />
         <ProtectedRoute path='/signup' exact={true} needLogin={needLogin} component={SignUpForm} />
         <PrivateRoute path="/" needLogin={needLogin} component={Main} />
-        <PrivateRoute path="/channels/:channelId" needLogin={needLogin} component={Main} />
-        <PrivateRoute path="/groups/:groupId" needLogin={needLogin} component={Main} />
+        <PrivateRoute path="/channels/:id" needLogin={needLogin} component={Main} />
+        <PrivateRoute path="/groups/:id" needLogin={needLogin} component={Main} />
         <Redirect to="/" needLogin={needLogin} component={Main}/>
       </Switch>
       </SocketContext.Provider>

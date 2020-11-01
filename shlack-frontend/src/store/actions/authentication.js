@@ -3,6 +3,8 @@ export const TOKEN_KEY = "shlack/authentication/token";
 export const SET_TOKEN = 'shlack/authentication/SET_TOKEN';
 export const REMOVE_TOKEN = 'shlack/authentication/REMOVE_TOKEN';
 export const USER_ID = "shlack/authentication/USER_ID"
+export const USER_USERNAME = "shlack/authentication/USER_USERNAME";
+export const USER_IMG = "shlack/authentication/USER_IMG";
 
 export const removeToken = (token) => ({ type: REMOVE_TOKEN });
 export const setToken = (token) => ({ type: SET_TOKEN, token });
@@ -24,6 +26,8 @@ export const signUp = (user) => async (dispatch) => {
     const { token, user } = await response.json();
     window.localStorage.setItem(TOKEN_KEY, token);
     window.localStorage.setItem(USER_ID, user.id);
+    window.localStorage.setItem(USER_USERNAME, user.username);
+    window.localStorage.setItem(USER_IMG, user.imgUrl);
     dispatch(setToken(token));
   }
 };
@@ -39,6 +43,8 @@ export const login = (email, password) => async (dispatch) => {
     const { token, user } = await response.json();
     window.localStorage.setItem(TOKEN_KEY, token);
     window.localStorage.setItem(USER_ID, user.id);
+    window.localStorage.setItem(USER_USERNAME, user.username);
+    window.localStorage.setItem(USER_IMG, user.imgUrl);
     dispatch(setToken(token));
   }
 };

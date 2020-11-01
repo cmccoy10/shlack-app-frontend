@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Form, Grid, Paper, TextField, IconButton } from "@material-ui/core";
+import { Form, Grid, Paper, TextField, IconButton, Box } from "@material-ui/core";
 import { useContext } from "react";
 import SocketContext from "../SocketContext";
 import { useSelector } from 'react-redux';
@@ -17,23 +17,35 @@ const useStyles = makeStyles((theme) => ({
   mainContainer: {
     display: "flex",
   },
-  messageContainer: {
+  outerMessageContainer: {
     height: "62vh",
-    border: "thin solid black",
-    overflow: "auto"
+    overflow: "hidden",
+    position: "relative",
+    overflow: "hidden"
+
+  },
+  innerMessageContainer: {
+    display: "flex",
+    flexDirection: "column",
+    overflow: "scroll",
+    height: "100%",
+    width: "100%",
+    position:"absolute",
   },
   textContainer: {
     height: "20vh",
-    border: "thin solid black"
   },
   textBox: {
-    width: "50em"
+    width: "76vw"
   },
   list: {
     width: 250,
   },
   fullList: {
     width: 'auto',
+  },
+  margin: {
+    margin: theme.spacing(1),
   },
 }))
 
@@ -45,12 +57,7 @@ const MainChat = () => {
   const socket = useContext(SocketContext);
   const classes = useStyles();
   const [body, setBody] = useState("");
-  const [state, setState] = React.useState({
-    top: false,
-    left: false,
-    bottom: false,
-    right: false,
-  });
+
 
   useEffect(() => {
     if (messageElement.current) {
@@ -110,32 +117,37 @@ const MainChat = () => {
   }
 
   return (
-    <Grid container direction="column">
-      <Grid item className={classes.messageContainer}>
-        {messages.map(message => {
-          return (
-            <Message key={message.id} message={message}/>
-          )
-        })}
+    <Grid container direction="column" >
+      <Grid item className={classes.outerMessageContainer}>
+        <Box className={classes.innerMessageContainer}>
+          {messages.map(message => {
+            return (
+              <Message key={message.id} message={message}/>
+            )
+          })}
+        </Box>
       </Grid>
       <Grid item className={classes.textContainer}>
-        <Grid container justify="center" alignItems="center">
+        <Grid container direction="row" alignItems="center">
           <form onSubmit={onSubmit}>
-            <Grid item className={classes.textBox}>
-              <TextField
+            <Grid container direction="row" >
+              <Grid item className={classes.textBox} display="flex" drection="row">
+                <TextField
                   id="outlined-multiline-static"
                   multiline
                   rows={2}
                   fullWidth
-                  defaultValue="Default Value"
+                  color="secondary"
                   variant="outlined"
+                  className={classes.margin}
                   onChange={onChange}
                   value={body}
                 />
               </Grid>
-              <IconButton type="submit" backgroundColor="white">
-                <SendIcon />
-              </IconButton>
+                <IconButton type="submit" backgroundColor="white" disabled={body === ""}>
+                  <SendIcon />
+                </IconButton>
+              </Grid>
            </form>
         </Grid>
       </Grid>

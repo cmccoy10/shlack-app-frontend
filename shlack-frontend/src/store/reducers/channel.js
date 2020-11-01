@@ -4,7 +4,8 @@ import {
   LOAD,
   ADD_JOINED_CHANNEL,
   SET_CURRENT_CHANNEL,
-  ADD_CHANNELS
+  ADD_CHANNELS,
+  ADD_CURRENT_CHANNEL
 } from "../actions/channel";
 
 const initialState = {
@@ -35,6 +36,11 @@ export default function reducer(state = initialState, action) {
     case ADD_CHANNELS: {
       return {
         ...state, channels: action.channels
+      }
+    }
+    case ADD_CURRENT_CHANNEL: {
+      return {
+        ...state, oneChannel: action.channel
       }
     }
     case SET_CURRENT_CHANNEL: {
