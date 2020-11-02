@@ -1,4 +1,4 @@
-import { baseUrl } from '../../config/config';
+import { apiUrl } from '../../config/config';
 import { USER_ID } from "../actions/authentication";
 export const ADD_USERS = "ADD_USERS";
 
@@ -15,7 +15,7 @@ export const getUsers = () => async (dispatch, getState) => {
   const {
     authentication: { token },
   } = getState();
-  const response = await fetch(`${baseUrl}/users`, {
+  const response = await fetch(`${apiUrl}/users`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

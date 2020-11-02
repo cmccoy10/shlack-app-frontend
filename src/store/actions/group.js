@@ -1,4 +1,4 @@
-import { baseUrl } from '../../config/config';
+import { apiUrl } from '../../config/config';
 import { USER_ID } from "../actions/authentication";
 export const LOAD = "shlack/groups/LOAD";
 
@@ -8,7 +8,7 @@ export const load = (groupList) => ({ type: LOAD, groupList });
 //   const ownerId = window.localStorage.getItem(USER_ID)
 //   const { authentication: { token } } = getState();
 //   data.ownerId = ownerId;
-//   const response = await fetch(`${baseUrl}/channels`, {
+//   const response = await fetch(`${apiUrl}/channels`, {
 //     method: 'post',
 //     headers: {
 //       'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ export const getGroups = () => async (dispatch, getState) => {
   const {
     authentication: { token },
   } = getState();
-  const response = await fetch(`${baseUrl}/users/${id}/direct-groups`, {
+  const response = await fetch(`${apiUrl}/users/${id}/direct-groups`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

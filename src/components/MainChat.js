@@ -6,7 +6,7 @@ import SocketContext from "../SocketContext";
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useRef, useEffect, useState } from 'react';
-import { baseUrl } from '../config/config';
+import { apiUrl } from '../config/config';
 import { setMessages } from '../store/actions/channelMessages';
 import Message from './Message';
 import SendIcon from '@material-ui/icons/Send';
@@ -74,7 +74,7 @@ const MainChat = () => {
     (async () => {
         try {
             const response = await fetch(
-                `${baseUrl}/channels/${currentChannel}/messages`
+                `${apiUrl}/channels/${currentChannel}/messages`
             );
             if (!response.ok) {
                 throw new Error("Response not okay");

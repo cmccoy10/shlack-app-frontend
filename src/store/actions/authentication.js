@@ -1,4 +1,4 @@
-import { baseUrl } from '../../config/config';
+import { apiUrl } from '../../config/config';
 export const TOKEN_KEY = "shlack/authentication/token";
 export const SET_TOKEN = 'shlack/authentication/SET_TOKEN';
 export const REMOVE_TOKEN = 'shlack/authentication/REMOVE_TOKEN';
@@ -17,7 +17,7 @@ export const loadToken = () => async (dispatch) => {
 };
 
 export const signUp = (user) => async (dispatch) => {
-  const response = await fetch(`${baseUrl}/users`, {
+  const response = await fetch(`${apiUrl}/users`, {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(user),
@@ -33,7 +33,7 @@ export const signUp = (user) => async (dispatch) => {
 };
 
 export const login = (email, password) => async (dispatch) => {
-  const response = await fetch(`${baseUrl}/session`, {
+  const response = await fetch(`${apiUrl}/session`, {
     method: 'put',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password }),
@@ -53,7 +53,7 @@ export const logout = () => async (dispatch, getState) => {
   const {
     authentication: { token },
   } = getState();
-  const response = await fetch(`${baseUrl}/session`, {
+  const response = await fetch(`${apiUrl}/session`, {
     method: 'delete',
     headers: { Authorization: `Bearer ${token}` },
   });

@@ -1,4 +1,4 @@
-import { baseUrl } from '../../config/config';
+import { apiUrl } from '../../config/config';
 import { USER_ID } from "../actions/authentication";
 export const HIDE_FORM = 'channel/authentication/HIDE_FORM';
 export const SHOW_FORM = 'channel/authentication/SHOW_FORM';
@@ -46,7 +46,7 @@ export const createChannel = data => async (dispatch, getState) => {
   const ownerId = window.localStorage.getItem(USER_ID)
   const { authentication: { token } } = getState();
   data.ownerId = ownerId;
-  const response = await fetch(`${baseUrl}/channels`, {
+  const response = await fetch(`${apiUrl}/channels`, {
     method: 'post',
     headers: {
       'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ export const getChannels = () => async (dispatch, getState) => {
   const {
     authentication: { token },
   } = getState();
-  const response = await fetch(`${baseUrl}/users/${id}/channels`, {
+  const response = await fetch(`${apiUrl}/users/${id}/channels`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -80,7 +80,7 @@ export const getChannels = () => async (dispatch, getState) => {
 
 export const getCurrentChannel = (id) => async (dispatch, getState) => {
 
-  const response = await fetch(`${baseUrl}/channels/${id}`)
+  const response = await fetch(`${apiUrl}/channels/${id}`)
 
   if (response.ok) {
     const channelItem = await response.json();
@@ -95,7 +95,7 @@ export const modifyChannel = data => async (dispatch, getState) => {
     authentication: { token }
   } = getState();
   data.userId = id;
-  const response = await fetch(`${baseUrl}/channels/${channelId}`, {
+  const response = await fetch(`${apiUrl}/channels/${channelId}`, {
     method: 'put',
     headers: {
       'Content-Type': 'application/json',
@@ -116,7 +116,7 @@ export const deleteChannel = data => async (dispatch, getState) => {
     authentication: { token }
   } = getState();
   data.userId = id;
-  const response = await fetch(`${baseUrl}/channels/${channelId}`, {
+  const response = await fetch(`${apiUrl}/channels/${channelId}`, {
     method: 'delete',
     headers: {
       'Content-Type': 'application/json',
@@ -133,7 +133,7 @@ export const deleteChannel = data => async (dispatch, getState) => {
 export const addChannelMember = data => async (dispatch, getState) => {
   // const { channelId } = data;
   const { authentication: { token } } = getState();
-  const response = await fetch(`${baseUrl}/channels/:id/join`, {
+  const response = await fetch(`${apiUrl}/channels/:id/join`, {
     method: 'post',
     headers: {
       'Content-Type': 'application/json',
