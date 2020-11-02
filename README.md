@@ -12,7 +12,6 @@ Check out the app: [Live Demo](https://)
 * CSS3
 * Socket.IO
 * Material.UI
-* SASS
 * JavaScript
 * Node.js
 * Express.js
@@ -23,8 +22,6 @@ Check out the app: [Live Demo](https://)
 
 * [Feature List](/documentation/featureList.md)
 * [MVP](/documentation/MVP.md)
-* [Front End Routes](/documentation/frontEndRoutes.md)
 * [Back End Routes](/documentation/backEndRoutes.md)
 * [Schema](/documentation/schema.md)
 * [Schema Image](/documentation/schema-diagram.png)
-* [Templates List](/documentation/templatesList.md)
