@@ -56,7 +56,7 @@ export const createChannel = data => async (dispatch, getState) => {
   });
 
   if (response.ok) {
-    dispatch(hideForm());
+    // dispatch(hideForm());
     dispatch(getChannels());
   }
 }
@@ -127,5 +127,23 @@ export const deleteChannel = data => async (dispatch, getState) => {
   if (response.ok) {
     const channelList = await response.json();
     dispatch(load(channelList));
+  }
+}
+
+export const addChannelMember = data => async (dispatch, getState) => {
+  // const { channelId } = data;
+  const { authentication: { token } } = getState();
+  const response = await fetch(`${baseUrl}/channels/:id/join`, {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (response.ok) {
+    const channelItem = await response.json();
+    dispatch(addCurrentChannel(channelItem));
   }
 }

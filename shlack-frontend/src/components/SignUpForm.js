@@ -1,6 +1,28 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { signUp } from '../store/actions/authentication';
+import { InputLabel, Input, Button, Box, Avatar, Grid, TextField, Typography } from "@material-ui/core";
+import { FormControl } from '@material-ui/core';
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  splashContainer: {
+    width: "100%",
+    height: "93vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  bodyContainer: {
+    display: "flex",
+    height: "auto",
+    width: "auto",
+  },
+  formContainer: {
+    display: "flex",
+    flexDirection: "column"
+  }
+}));
 
 const SignUpForm = () => {
   const [fullName, setFullName] = useState('');
@@ -16,8 +38,6 @@ const SignUpForm = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(e.target);
     const newUser = {
       fullName,
       username,
@@ -25,50 +45,59 @@ const SignUpForm = () => {
       password,
       confirmPassword,
     };
-    console.log('handleSubmit -> newUser', newUser);
     dispatch(signUp(newUser));
   };
 
+  const classes = useStyles();
   return (
-    <main>
-      <h1>Sign Up Form</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type='text'
-          placeholder='Full Name'
-          value={fullName}
-          onChange={updateProperty(setFullName)}
-          required
-        />
-        <input
-          type='text'
-          placeholder='Username'
-          value={username}
-          onChange={updateProperty(setUsername)}
-          required
-        />
-        <input
-          type='email'
-          placeholder='Email'
-          value={email}
-          onChange={updateProperty(setEmail)}
-          required
-        />
-        <input
-          type='password'
-          placeholder='Password'
-          value={password}
-          onChange={updateProperty(setPassword)}
-        />
-        <input
-          type='password'
-          placeholder='Confirm Password'
-          value={confirmPassword}
-          onChange={updateProperty(setConfirmPassword)}
-        />
-        <button type='submit'>Sign Up</button>
-      </form>
-    </main>
+    <Box className={classes.splashContainer}>
+      <Grid container className={classes.bodyContainer} direction="column" alignContent="space-between">
+
+        <Grid item>
+            <Typography variant="h3">Sign Up</Typography>
+        </Grid>
+        <Grid item>
+          <Grid container className={classes.formContainer}>
+            <FormControl>
+              <Input
+                type='text'
+                placeholder='Full Name'
+                value={fullName}
+                onChange={updateProperty(setFullName)}
+                required
+              />
+              <Input
+                type='text'
+                placeholder='Username'
+                value={username}
+                onChange={updateProperty(setUsername)}
+                required
+              />
+              <Input
+                type='email'
+                placeholder='Email'
+                value={email}
+                onChange={updateProperty(setEmail)}
+                required
+              />
+              <Input
+                type='password'
+                placeholder='Password'
+                value={password}
+                onChange={updateProperty(setPassword)}
+              />
+              <Input
+                type='password'
+                placeholder='Confirm Password'
+                value={confirmPassword}
+                onChange={updateProperty(setConfirmPassword)}
+              />
+              </FormControl>
+            <Button color="secondary" onClick={handleSubmit}>Sign Up</Button>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 

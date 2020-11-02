@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   leftPanel: {
     display: "flex",
     margin: "0",
-    width: "20vw",
+    width: "20%",
     height: "100%",
   },
   banner: {
@@ -50,19 +50,12 @@ const Main = (props) => {
   return (
     <Box className={classes.mainContainer}>
       <Box className={classes.leftPanel}>
-        <MainLeftPanel />
+        <MainLeftPanel className={classes.leftPanel}/>
       </Box>
-      {currentChannel ?
       <Box className={classes.rightPanel}>
         <MainBanner />
         <MainChat />
       </Box>
-      :
-      <Box className={classes.rightPanel}>
-        <MainBanner />
-        <MainChat />
-      </Box>
-      }
       <Box>
       </Box>
     </Box>

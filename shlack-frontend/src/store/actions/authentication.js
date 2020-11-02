@@ -23,11 +23,11 @@ export const signUp = (user) => async (dispatch) => {
     body: JSON.stringify(user),
   });
   if (response.ok) {
-    const { token, user } = await response.json();
+    const { token, user, username, imgUrl } = await response.json();
     window.localStorage.setItem(TOKEN_KEY, token);
     window.localStorage.setItem(USER_ID, user.id);
-    window.localStorage.setItem(USER_USERNAME, user.username);
-    window.localStorage.setItem(USER_IMG, user.imgUrl);
+    window.localStorage.setItem(USER_USERNAME, username);
+    window.localStorage.setItem(USER_IMG, imgUrl);
     dispatch(setToken(token));
   }
 };
@@ -40,11 +40,11 @@ export const login = (email, password) => async (dispatch) => {
   });
 
   if (response.ok) {
-    const { token, user } = await response.json();
+    const { token, user, username, imgUrl } = await response.json();
     window.localStorage.setItem(TOKEN_KEY, token);
     window.localStorage.setItem(USER_ID, user.id);
-    window.localStorage.setItem(USER_USERNAME, user.username);
-    window.localStorage.setItem(USER_IMG, user.imgUrl);
+    window.localStorage.setItem(USER_USERNAME, username);
+    window.localStorage.setItem(USER_IMG, imgUrl);
     dispatch(setToken(token));
   }
 };

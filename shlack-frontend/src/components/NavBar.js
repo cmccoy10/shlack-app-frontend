@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { makeStyles } from "@material-ui/core/styles";
-import { AppBar, Toolbar, IconButton, Typography, Box, Avatar } from "@material-ui/core";
+import { AppBar, Toolbar, IconButton, Typography, Box, Avatar, Grid } from "@material-ui/core";
 import { useSelector, useDispatch } from 'react-redux';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
@@ -44,6 +44,12 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     marginRight: theme.spacing(2),
   },
+  navLink: {
+    textDecoration: "none"
+  },
+  appBarLinks: {
+    marginRight: "1em"
+  }
 }));
 
 const NavBar = () => {
@@ -90,20 +96,25 @@ const NavBar = () => {
     <>
       {needLogin ? (
       <AppBar position="static" className={classes.navbar}>
-        <Box display="flex" justifyContent="flex-end" className={classes.navBox}>
-          <Box display="flex" justifyContent="center" >
-            <NavLink exact to='/login' className='is-active'>
+        <Grid container display="flex" justify="space-between" className={classes.navBox}>
+          <Grid item>
+            <Typography variant="h3">
+              Shlack
+            </Typography>
+          </Grid>
+          <Grid item display="flex" justifyContent="center" className={classes.appBarLinks}>
+            <NavLink exact to='/login' className='is-active' className={classes.navLink}>
                 <Typography variant="h6" color="primary">
                   Log In
                 </Typography>
             </NavLink>
-            <NavLink exact to='/signup' className='is-active'>
+            <NavLink exact to='/signup' className='is-active' className={classes.navLink}>
               <Typography variant="h6" color="primary">
                 Sign Up
               </Typography>
             </NavLink>
-          </Box>
-        </Box>
+          </Grid>
+        </Grid>
       </AppBar>)
       : (
       <AppBar position="static" className={classes.navbar}>
@@ -117,25 +128,8 @@ const NavBar = () => {
             ref={anchorRef}
             aria-controls={open ? 'menu-list-grow' : undefined}
             aria-haspopup="true"
-            onClick={handleToggle}
             />
           </div>
-            <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
-              {({ TransitionProps, placement }) => (
-                <Grow
-                  {...TransitionProps}
-                  style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-                >
-                  <Paper>
-                    <ClickAwayListener onClickAway={handleClose}>
-                      <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                        <MenuItem onClick={handleClose}>Logout</MenuItem>
-                      </MenuList>
-                    </ClickAwayListener>
-                  </Paper>
-                </Grow>
-              )}
-            </Popper>
         </Box>
       </AppBar>
       )

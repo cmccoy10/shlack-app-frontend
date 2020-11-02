@@ -15,7 +15,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import InfoIcon from '@material-ui/icons/Info';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import { useEffect } from 'react';
-import { getCurrentChannel, modifyChannel, deleteChannel } from '../store/actions/channel';
+import { getCurrentChannel, modifyChannel, deleteChannel, addChannelMember } from '../store/actions/channel';
 import MenuIcon from '@material-ui/icons/Menu';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -24,6 +24,12 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { logout } from '../store/actions/authentication';
 import { useParams } from 'react-router-dom';
+import InputLabel from '@material-ui/core/InputLabel';
+import Input from '@material-ui/core/Input';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import { getUsers } from '../store/actions/user';
+import AvatarGroup from '@material-ui/lab/AvatarGroup';
 
 const useStyles = makeStyles((theme) => ({
   bannerContainer: {
@@ -59,27 +65,43 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.delete.main,
     color: "white"
   },
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  memberAvatar: {
+    width: theme.spacing(3.5),
+    height: theme.spacing(3.5),
+  },
+  memberGroup: {
+    width: '1em',
+    height: "1em"
+  }
 }));
 
 const MainBanner = (props) => {
   const dispatch = useDispatch();
-
-  // const { id } = useParams();
-  // console.log("params id", id)
-  // const paramsId = id;
-
+  const users = useSelector((state) => state.user.users);
   const channelId = useSelector((state) => state.channel.currentChannel);
   const currentChannel = useSelector((state) => state.channel.oneChannel);
   const [channelFormDisplay, setChannelFormDisplay] = React.useState(false);
   const [deleteFormDisplay, setDeleteFormDisplay] = React.useState(false);
   const [inputTitle, setInputTitle] = React.useState('');
   const [inputTopic, setInputTopic] = React.useState('');
+  const [member, setMember] = React.useState('');
+  const [open, setOpen] = React.useState(false);
 
 
 
   useEffect(() => {
     dispatch(getCurrentChannel(channelId))
+    dispatch(getUsers())
   }, [channelId]);
+
 
   const handleChannelTitleChange = e => setInputTitle(e.target.value)
   const handleChannelTopicChange = e => setInputTopic(e.target.value)
@@ -113,7 +135,26 @@ const MainBanner = (props) => {
     }))
     setDeleteFormDisplay(false);
   }
+////////////////
+  const handleMemberInputChange = (event) => {
+    setMember(Number(event.target.value) || '');
+  };
 
+  const handleMemberFormClick = () => {
+    setOpen(true);
+  };
+
+  const handleMemberFormClose = () => {
+    setOpen(false);
+  };
+  const handleMemberCreate = async() => {
+    dispatch(addChannelMember({
+      channelId: channelId,
+      userId: member
+    }));
+    handleMemberFormClose();
+  }
+////////////////
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
@@ -159,7 +200,7 @@ const MainBanner = (props) => {
       <List>
         <ListItem >
           <ListItemIcon>
-            <IconButton backgroundColor="white" >
+            <IconButton backgroundColor="white" onClick={handleMemberFormClick}>
               <PersonAddIcon/>
             </IconButton>
           </ListItemIcon>
@@ -201,12 +242,13 @@ const MainBanner = (props) => {
     </div>
   );
 
+
   return (
     <Box>
       {currentChannel ?
       <Grid container className={classes.bannerContainer} >
-        <Box flexGrow={1} >
-          <Box className={classes.channel} display="flex" alignContent="center">
+        <Box className={classes.channel} flexGrow={1} justifyContent="center">
+          <Box justifyContent="center">
             <Box>
               <Typography variant="subtitle1">{currentChannel.title}</Typography>
             </Box>
@@ -216,7 +258,16 @@ const MainBanner = (props) => {
           </Box>
         </Box>
         <Box className={classes.buttons}>
-          <IconButton backgroundColor="white" >
+          {/* <IconButton backgroundColor="white" disabled>
+          <AvatarGroup max={3} >
+            {
+              currentChannel.channelMembers.map(member => {
+                return <Avatar alt={member.fullName} src={member.imgUrl} variant="rounded"/>
+              })}
+
+          </AvatarGroup>
+          </IconButton> */}
+          <IconButton backgroundColor="white" onClick={handleMemberFormClick}>
             <PersonAddIcon/>
           </IconButton>
           {['right'].map((anchor) => (
@@ -270,6 +321,43 @@ const MainBanner = (props) => {
         </Box>
       </Grid>
       }
+      <div>
+        <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleMemberFormClose}>
+          <DialogTitle>Add a member</DialogTitle>
+          <DialogContent>
+            <form className={classes.container}>
+              <FormControl className={classes.formControl}>
+                <InputLabel id="demo-dialog-select-label">Name</InputLabel>
+                <Select
+                  labelId="demo-dialog-select-label"
+                  id="demo-dialog-select"
+                  onChange={handleMemberInputChange}
+                  input={<Input />}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  {users.map(user => {
+                    return (
+                    <MenuItem value={user.id}>
+                      {user.fullName}
+                    </MenuItem>
+                    )
+                  })}
+                </Select>
+              </FormControl>
+            </form>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleMemberFormClose} color="secondary">
+              Cancel
+            </Button>
+            <Button onClick={handleMemberCreate} color="secondary" disabled={member === ''}>
+              Add
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
       <Box>
         <Dialog open={channelFormDisplay} onClose={handleChannelFormClose} aria-labelledby="form-dialog-title">
           <DialogTitle id="form-dialog-title">Edit Your Channel</DialogTitle>

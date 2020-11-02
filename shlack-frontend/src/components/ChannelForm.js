@@ -41,8 +41,8 @@ function ChannelForm(props) {
 
   const [channelFormDisplay, setChannelFormDisplay] = React.useState(false);
 
-  const handleChannelInputChange = e => setTitle(e.target.value)
-  const handleChannelAvatarInputChange = e => setTopic(e.target.value)
+  const handleChannelTitleChange = e => setTitle(e.target.value)
+  const handleChannelTopicChange = e => setTopic(e.target.value)
 
   const handleChannelForm = () => {
     setChannelFormDisplay(true);
@@ -80,16 +80,16 @@ function ChannelForm(props) {
           type="text"
           fullWidth
           value={title}
-          onChange={setTitle}
+          onChange={handleChannelTitleChange}
         />
         <TextField
           margin="dense"
           id="channelAvatar"
-          label="Channel Avatar Url"
+          label="Channel Topic"
           type="text"
           fullWidth
           value={topic}
-          onChange={setTopic}
+          onChange={handleChannelTopicChange}
         />
       </DialogContent>
       <DialogActions>

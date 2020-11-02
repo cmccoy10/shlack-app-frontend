@@ -2,6 +2,30 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login } from '../store/actions/authentication';
+import { makeStyles } from "@material-ui/core/styles";
+import { InputLabel, Input, Button, Box, Avatar, Grid, TextField, Typography } from "@material-ui/core";
+import { FormControl } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+  splashContainer: {
+    width: "100%",
+    height: "93vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  bodyContainer: {
+    display: "flex",
+    height: "auto",
+    width: "auto",
+    flexDirection: "column",
+    alignContent: "space-between"
+  },
+  formContainer: {
+    display: "flex",
+    flexDirection: "column"
+  }
+}));
 
 const LoginForm = () => {
   const [email, setEmail] = useState('demo@example.com');
@@ -10,7 +34,7 @@ const LoginForm = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     dispatch(login(email, password));
   };
 
@@ -18,29 +42,43 @@ const LoginForm = () => {
     callback(e.target.value);
   };
 
+  const classes = useStyles();
+
   if (token) {
     return <Redirect to='/' />;
   }
 
   return (
-    <main>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type='text'
-          placeholder='Email'
-          value={email}
-          onChange={updateProperty(setEmail)}
-        />
-        <input
-          type='password'
-          placeholder='Password'
-          value={password}
-          onChange={updateProperty(setPassword)}
-        />
-        <button type='submit'>Login</button>
-      </form>
-    </main>
+    <Box className={classes.splashContainer}>
+      <Grid container className={classes.bodyContainer}>
+        <Grid item>
+          <Typography variant="h3">Log In</Typography>
+        </Grid>
+        <Grid item>
+          <Grid container className={classes.formContainer}>
+            <FormControl >
+              {/* <InputLabel>Email Address</InputLabel> */}
+              <Input
+                type='text'
+                placeholder='Email'
+                value={email}
+                required
+                onChange={updateProperty(setEmail)}
+              />
+              {/* <InputLabel>Password</InputLabel> */}
+              <Input
+                type='password'
+                placeholder='Password'
+                value={password}
+                required
+                onChange={updateProperty(setPassword)}
+              />
+              <Button color="secondary" onClick={handleSubmit} >Login</Button>
+            </FormControl>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 
