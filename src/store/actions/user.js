@@ -11,7 +11,6 @@ export const addUsers = (users) => {
 }
 
 export const getUsers = () => async (dispatch, getState) => {
-  const id = window.localStorage.getItem(USER_ID);
   const {
     authentication: { token },
   } = getState();

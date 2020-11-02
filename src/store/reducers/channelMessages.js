@@ -19,7 +19,6 @@ const initialState = {};
 // }
 
 const messagesReducer = (state = initialState, action) => {
-  console.log(action.message)
   Object.freeze(state);
   switch (action.type) {
     // Adds a single message to state.<channelId> array.

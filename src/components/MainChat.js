@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Form, Grid, Paper, TextField, IconButton, Box } from "@material-ui/core";
+import { Grid, TextField, IconButton, Box } from "@material-ui/core";
 import { useContext } from "react";
 import SocketContext from "../SocketContext";
 import { useSelector } from 'react-redux';
@@ -80,7 +80,6 @@ const MainChat = () => {
                 throw new Error("Response not okay");
             }
             const channel = await response.json();
-            console.log(channel)
             dispatch(setMessages(channel.ChannelMessages, channel));
         } catch (e) {
             console.error(e);

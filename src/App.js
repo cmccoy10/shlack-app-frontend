@@ -1,7 +1,7 @@
 import React, { useState, useEffect, } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Redirect, Route, Switch } from 'react-router';
-import { BrowserRouter, useParams } from 'react-router-dom';
+import { Redirect, Switch } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
 import LoginForm from './components/LoginForm';
 import SignUpForm from './components/SignUpForm';
 import NavBar from './components/NavBar';
@@ -15,7 +15,6 @@ import { loadToken } from './store/actions/authentication';
 import SocketContext from './SocketContext';
 import { addMessage } from './store/actions/channelMessages';
 import { addJoinedChannel } from "./store/actions/channel";
-import { createMemoryHistory } from 'history';
 
 const App = ({ needLogin, loadToken, socket }) => {
   const [loaded, setLoaded] = useState(false);
@@ -45,9 +44,6 @@ const App = ({ needLogin, loadToken, socket }) => {
     // Adds incoming message to the store
     socket.on(currentChannel, (message) => {
       console.log("incoming message", message)
-      // console.log(
-      //   `Recieved new message for ${channel}: ${message}`
-      // );
       // If the current channel doesn't match the
       // channel the message belongs to, it doesn't
       // display
@@ -62,9 +58,6 @@ const App = ({ needLogin, loadToken, socket }) => {
     setLoaded(true);
     loadToken();
   }, []);
-
-  // let { id } = useParams();
-  // console.log(id)
 
   if (!loaded) {
     return null;

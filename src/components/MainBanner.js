@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from "@material-ui/core/styles";
-import { AppBar, Toolbar, IconButton, Typography, Box, Avatar, Grid, Paper, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField } from "@material-ui/core";
+import { IconButton, Typography, Box, Grid, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField } from "@material-ui/core";
 import { useSelector, useDispatch } from 'react-redux';
 import clsx from 'clsx';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
@@ -10,26 +10,21 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import InfoIcon from '@material-ui/icons/Info';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import { useEffect } from 'react';
 import { getCurrentChannel, modifyChannel, deleteChannel, addChannelMember } from '../store/actions/channel';
-import MenuIcon from '@material-ui/icons/Menu';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import CloseIcon from '@material-ui/icons/Close';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { logout } from '../store/actions/authentication';
-import { useParams } from 'react-router-dom';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { getUsers } from '../store/actions/user';
-import AvatarGroup from '@material-ui/lab/AvatarGroup';
 
 const useStyles = makeStyles((theme) => ({
   bannerContainer: {
@@ -339,7 +334,7 @@ const MainBanner = (props) => {
                   </MenuItem>
                   {users.map(user => {
                     return (
-                    <MenuItem value={user.id}>
+                    <MenuItem key={user.id} value={user.id}>
                       {user.fullName}
                     </MenuItem>
                     )

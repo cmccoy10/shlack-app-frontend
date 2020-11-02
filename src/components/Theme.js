@@ -24,7 +24,6 @@ const theme = createMuiTheme({
 });
 
 const Theme = props => {
-  console.log(theme)
   return (
     <ThemeProvider theme={theme}>
       {props.children}

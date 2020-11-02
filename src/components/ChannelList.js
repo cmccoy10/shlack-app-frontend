@@ -1,15 +1,12 @@
 import React from 'react';
 import { makeStyles } from "@material-ui/core/styles";
-import { IconButton, Typography, Button, Box, Avatar, Paper, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField, Grid, List, ListItem, ListItemText, Divider} from "@material-ui/core";
+import { IconButton, Typography, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField, Grid, List, ListItem, ListItemText, Divider} from "@material-ui/core";
 import { useSelector } from 'react-redux';
 import AddIcon from '@material-ui/icons/Add';
-import ChannelForm from './ChannelForm';
 import { useDispatch } from 'react-redux';
-import { getChannels, showForm, setCurrentChannel, createChannel } from '../store/actions/channel';
+import { getChannels, setCurrentChannel, createChannel } from '../store/actions/channel';
 import { useEffect, useState } from 'react';
-import { Route, useParams, Link } from 'react-router-dom';
-
-
+import { Link } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -57,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
   },
   margin: {
     margin: theme.spacing(1),
-    backgroundColor: "#303E4D",
+    // backgroundColor: "#303E4D",
     color: theme.palette.primary.main
   },
 }));
@@ -118,7 +115,7 @@ const ChannelList = () => {
           </Typography>
         </Grid>
         <Grid item>
-          <IconButton backgroundColor="white" onClick={handleChannelForm}>
+          <IconButton onClick={handleChannelForm}>
             <AddIcon className={classes.addIcon}/>
           </IconButton>
           <Dialog open={channelFormDisplay} onClose={handleChannelFormClose} aria-labelledby="form-dialog-title">
