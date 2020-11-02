@@ -34,7 +34,6 @@ export const signUp = (user) => async (dispatch) => {
 //Testing
 export const login = (email, password) => async (dispatch) => {
   const response = await fetch(`${apiUrl}/session`, {
-    mode: "no-cors",
     method: 'put',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password }),
