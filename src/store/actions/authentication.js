@@ -31,7 +31,7 @@ export const signUp = (user) => async (dispatch) => {
     dispatch(setToken(token));
   }
 };
-
+//Testing
 export const login = (email, password) => async (dispatch) => {
   const response = await fetch(`${apiUrl}/session`, {
     mode: "no-cors",
