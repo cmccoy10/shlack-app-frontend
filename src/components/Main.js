@@ -19,7 +19,8 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
   },
   banner: {
-    margin: "0",
+    height: "10%",
+    width: "80%"
   },
   rightPanelParams: {
     width: "80vw",
@@ -29,14 +30,15 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-evenly"
   },
   rightPanel: {
-    width: "80vw",
+    width: "80%",
     height: "100%",
     display: "flex",
     flexDirection: "column",
     justifyContent: "flex-start"
   },
   mainChat: {
-    display: "flex"
+    height: "60%",
+    width: "100%"
   },
   paper: {
     padding: theme.spacing(2),
@@ -53,8 +55,8 @@ const Main = (props) => {
         <MainLeftPanel className={classes.leftPanel}/>
       </Box>
       <Box className={classes.rightPanel}>
-        <MainBanner />
-        <MainChat />
+        <MainBanner className={classes.banner}/>
+        <MainChat className={classes.mainChat}/>
       </Box>
       <Box>
       </Box>

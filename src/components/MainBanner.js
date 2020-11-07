@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from "@material-ui/core/styles";
-import { IconButton, Typography, Box, Grid, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField } from "@material-ui/core";
+import { Avatar, IconButton, Typography, Box, Grid, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField } from "@material-ui/core";
 import { useSelector, useDispatch } from 'react-redux';
 import clsx from 'clsx';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
@@ -25,13 +25,14 @@ import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { getUsers } from '../store/actions/user';
+import AvatarGroup from '@material-ui/lab/AvatarGroup';
 
 const useStyles = makeStyles((theme) => ({
   bannerContainer: {
     background: "white",
     borderTop: "thin solid #45515f",
     borderBottom: "thin solid #45515f",
-    height: "5em",
+    height: "100%",
     borderBottom: "thin solid #45515f",
   },
   panelHeader: {
@@ -49,8 +50,11 @@ const useStyles = makeStyles((theme) => ({
   },
   channel: {
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "row",
     justifyContent: "flex-start"
+  },
+  channelContainer: {
+    paddingLeft: "1em"
   },
   closeButton: {
     marginLeft: "8em"
@@ -73,8 +77,11 @@ const useStyles = makeStyles((theme) => ({
     height: theme.spacing(3.5),
   },
   memberGroup: {
-    width: '1em',
-    height: "1em"
+    width: '.5em',
+    height: ".5em"
+  },
+  channelTitle: {
+      fontWeight: "700"
   }
 }));
 
@@ -95,8 +102,7 @@ const MainBanner = (props) => {
   useEffect(() => {
     dispatch(getCurrentChannel(channelId))
     dispatch(getUsers())
-  }, [channelId]);
-
+  }, [channelId, dispatch]);
 
   const handleChannelTitleChange = e => setInputTitle(e.target.value)
   const handleChannelTopicChange = e => setInputTopic(e.target.value)
@@ -237,15 +243,14 @@ const MainBanner = (props) => {
     </div>
   );
 
-
   return (
-    <Box>
+    <Box >
       {currentChannel ?
       <Grid container className={classes.bannerContainer} >
-        <Box className={classes.channel} flexGrow={1} justifyContent="center">
-          <Box justifyContent="center">
+        <Box className={classes.channel} flexGrow={1} justifyContent="center" alignItems="center">
+          <Box justifyContent="center" className={classes.channelContainer}>
             <Box>
-              <Typography variant="subtitle1">{currentChannel.title}</Typography>
+              <Typography className={classes.channelTitle} variant="subtitle1">{currentChannel.title}</Typography>
             </Box>
             <Box>
               <Typography variant="subtitle2">{currentChannel.topic}</Typography>
@@ -253,15 +258,15 @@ const MainBanner = (props) => {
           </Box>
         </Box>
         <Box className={classes.buttons}>
-          {/* <IconButton backgroundColor="white" disabled>
+          <IconButton backgroundColor="white" disabled>
           <AvatarGroup max={3} >
             {
               currentChannel.channelMembers.map(member => {
-                return <Avatar alt={member.fullName} src={member.imgUrl} variant="rounded"/>
+                return <Avatar key={member.id} alt={member.fullName} src={member.imgUrl} variant="rounded"/>
               })}
 
           </AvatarGroup>
-          </IconButton> */}
+          </IconButton>
           <IconButton backgroundColor="white" onClick={handleMemberFormClick}>
             <PersonAddIcon/>
           </IconButton>

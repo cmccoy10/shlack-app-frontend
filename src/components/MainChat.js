@@ -15,7 +15,8 @@ import { USER_ID } from '../store/actions/authentication';
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
-    display: "flex",
+    width: "100%",
+    height: "100%"
   },
   outerMessageContainer: {
     height: "62vh",
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
   innerMessageContainer: {
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "column-reverse",
     overflow: "scroll",
     height: "100%",
     width: "100%",
@@ -34,9 +35,17 @@ const useStyles = makeStyles((theme) => ({
   },
   textContainer: {
     height: "20vh",
+    width: "100%"
   },
   textBox: {
-    width: "76vw"
+    width: "95%",
+  },
+  sendButton: {
+    width: "5%"
+  },
+  innerTextContainer: {
+    height: "100%",
+    width: "100%"
   },
   list: {
     width: 250,
@@ -57,6 +66,9 @@ const MainChat = () => {
   const socket = useContext(SocketContext);
   const classes = useStyles();
   const [body, setBody] = useState("");
+
+
+
 
 
   useEffect(() => {
@@ -115,11 +127,16 @@ const MainChat = () => {
     return null;
   }
 
+  const reversedMessages = []
+  for (let i = messages.length - 1; i >= 0; i--) {
+      reversedMessages.push(messages[i])
+  }
+
   return (
-    <Grid container direction="column" >
+    <Grid container direction="column" className={classes.mainContainer}>
       <Grid item className={classes.outerMessageContainer}>
         <Box className={classes.innerMessageContainer}>
-          {messages.map(message => {
+          {reversedMessages.map(message => {
             return (
               <Message key={message.id} message={message}/>
             )
@@ -127,10 +144,9 @@ const MainChat = () => {
         </Box>
       </Grid>
       <Grid item className={classes.textContainer}>
-        <Grid container direction="row" alignItems="center">
           <form onSubmit={onSubmit}>
-            <Grid container direction="row" >
-              <Grid item className={classes.textBox} display="flex" drection="row">
+            <Grid container className={classes.innerTextContainer} display="flex" direction="row" alignItems="center">
+              <Grid item className={classes.textBox} display="flex" direction="row">
                 <TextField
                   id="outlined-multiline-static"
                   multiline
@@ -142,13 +158,14 @@ const MainChat = () => {
                   onChange={onChange}
                   value={body}
                 />
-              </Grid>
+              </Grid >
+              <Grid item className={classes.sendButton}>
                 <IconButton type="submit" backgroundColor="white" disabled={body === ""}>
                   <SendIcon />
                 </IconButton>
               </Grid>
+              </Grid>
            </form>
-        </Grid>
       </Grid>
     </Grid>
   );

@@ -28,6 +28,7 @@ const SignUpForm = () => {
   const [fullName, setFullName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
+  const [imgUrl, setImgUrl] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -38,10 +39,12 @@ const SignUpForm = () => {
   };
 
   const handleSubmit = (e) => {
+    if (!imgUrl) setImgUrl("https://icon-library.com/images/generic-profile-icon/generic-profile-icon-8.jpg")
     const newUser = {
       fullName,
       username,
       email,
+      imgUrl,
       password,
       confirmPassword,
     };
@@ -78,6 +81,13 @@ const SignUpForm = () => {
                 placeholder='Email'
                 value={email}
                 onChange={updateProperty(setEmail)}
+                required
+              />
+              <Input
+                type='imgUrl'
+                placeholder='Image Url'
+                value={imgUrl}
+                onChange={updateProperty(setImgUrl)}
                 required
               />
               <Input
