@@ -13,7 +13,8 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.secondary.main,
     fontSize: theme.typography.h3,
     color: "#FFFFFF",
-    height: "7%"
+    height: "3em",
+    width: "100vw",
   },
   navBox: {
     height: "7%"
@@ -89,7 +90,7 @@ const NavBar = () => {
   return (
     <>
       {needLogin ? (
-      <AppBar position="static" className={classes.navbar}>
+      <AppBar elevation={0} position="static" className={classes.navbar}>
         <Grid container display="flex" justify="space-between" className={classes.navBox}>
           <Grid item>
             <Typography variant="h3">
@@ -111,7 +112,7 @@ const NavBar = () => {
         </Grid>
       </AppBar>)
       : (
-      <AppBar position="static" className={classes.navbar}>
+      <AppBar elevation={0} position="static" className={classes.navbar}>
         <Box display="flex" justifyContent="flex-end" >
           <div className={classes.root1}>
             <Avatar

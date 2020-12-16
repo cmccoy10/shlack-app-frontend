@@ -4,6 +4,8 @@ import { signUp } from '../store/actions/authentication';
 import { InputLabel, Input, Button, Box, Avatar, Grid, TextField, Typography } from "@material-ui/core";
 import { FormControl } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
+import NavBar from './NavBar';
+
 
 const useStyles = makeStyles((theme) => ({
   splashContainer: {
@@ -54,6 +56,7 @@ const SignUpForm = () => {
   const classes = useStyles();
   return (
     <Box className={classes.splashContainer}>
+      <NavBar />
       <Grid container className={classes.bodyContainer} direction="column" alignContent="space-between">
 
         <Grid item>

@@ -8,7 +8,8 @@ import GroupList from "./GroupList";
 const useStyles = makeStyles((theme) => ({
   sidePanel: {
     background: "#303E4D",
-    width: "100%"
+    width: "100%",
+    height: "100%"
   },
   panelHeader: {
     borderTop: "thin solid #45515f",

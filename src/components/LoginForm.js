@@ -5,6 +5,8 @@ import { login } from '../store/actions/authentication';
 import { makeStyles } from "@material-ui/core/styles";
 import { InputLabel, Input, Button, Box, Avatar, Grid, TextField, Typography } from "@material-ui/core";
 import { FormControl } from '@material-ui/core';
+import NavBar from './NavBar';
+
 
 const useStyles = makeStyles((theme) => ({
   splashContainer: {
@@ -50,6 +52,7 @@ const LoginForm = () => {
 
   return (
     <Box className={classes.splashContainer}>
+      <NavBar />
       <Grid container className={classes.bodyContainer}>
         <Grid item>
           <Typography variant="h3">Log In</Typography>

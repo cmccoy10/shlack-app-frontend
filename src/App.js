@@ -67,7 +67,6 @@ const App = ({ needLogin, loadToken, socket }) => {
     <CssBaseline />
     <Theme>
       <SocketContext.Provider value={socket}>
-      <NavBar />
       <Switch>
         <ProtectedRoute path='/login' exact={true} needLogin={needLogin} component={LoginForm} />
         <ProtectedRoute path='/signup' exact={true} needLogin={needLogin} component={SignUpForm} />
