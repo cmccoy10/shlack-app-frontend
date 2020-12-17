@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
+
+.splashContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 7em 1fr;
+    background-color: #fff;
+}
+
+.formHeader {
+    font-family: 'Lato', sans-serif;
+    font-size: 3.5em;
+    font-weight: 700;
+}

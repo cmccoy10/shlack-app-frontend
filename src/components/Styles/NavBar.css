@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@700&family=Montserrat:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
+
+.navBox {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+.navBrand {
+    grid-column: 2/3;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.navbarSplash {
+    color: #000;
+    height: 100%;
+    width: 100%;
+    /* border-bottom: 1px solid black; */
+}
+
+.appBarLinks {
+    font-family: 'Lato', sans-serif;
+    grid-column: 3/4;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding-right: 2.5em;
+    color: rgba(var(--sk_foreground_max_solid,97,96,97),1);
+}
+
+.monteserrat {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 2.5em;
+}
+
+.alternative {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-weight: 700;
+    font-size: 2.5em;
+}
+
+.navLink {
+    text-decoration: none;
+    color: #e01e5a;
+    font-weight: 700;
+}
+
+.navIcon {
+    margin-right: .2em;
+    transform: rotate(45deg);
+}

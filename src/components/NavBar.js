@@ -4,7 +4,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import { AppBar, Typography, Box, Avatar, Grid } from "@material-ui/core";
 import { useSelector, useDispatch } from 'react-redux';
 import { removeToken, USER_IMG } from '../store/actions/authentication';
-
+import "./Styles/NavBar.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStroopwafel, faAsterisk } from '@fortawesome/free-solid-svg-icons'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -12,9 +14,17 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: theme.typography,
     background: theme.palette.secondary.main,
     fontSize: theme.typography.h3,
-    color: "#FFFFFF",
-    height: "3em",
+    color: "#000",
+    height: "100%",
     width: "100vw",
+    borderBottom: "1px solid black"
+  },
+  navbarSplash: {
+    fontSize: theme.typography.h3,
+    color: "#000",
+    height: "100%",
+    width: "100vw",
+    borderBottom: "1px solid black"
   },
   navBox: {
     height: "7%"
@@ -44,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appBarLinks: {
     marginRight: "1em"
-  }
+   }
 }));
 
 const NavBar = () => {
@@ -89,29 +99,6 @@ const NavBar = () => {
   const classes = useStyles();
   return (
     <>
-      {needLogin ? (
-      <AppBar elevation={0} position="static" className={classes.navbar}>
-        <Grid container display="flex" justify="space-between" className={classes.navBox}>
-          <Grid item>
-            <Typography variant="h3">
-              Shlack
-            </Typography>
-          </Grid>
-          <Grid item display="flex" justifyContent="center" className={classes.appBarLinks}>
-            <NavLink exact to='/login' className='is-active' className={classes.navLink}>
-                <Typography variant="h6" color="primary">
-                  Log In
-                </Typography>
-            </NavLink>
-            <NavLink exact to='/signup' className='is-active' className={classes.navLink}>
-              <Typography variant="h6" color="primary">
-                Sign Up
-              </Typography>
-            </NavLink>
-          </Grid>
-        </Grid>
-      </AppBar>)
-      : (
       <AppBar elevation={0} position="static" className={classes.navbar}>
         <Box display="flex" justifyContent="flex-end" >
           <div className={classes.root1}>
@@ -127,8 +114,6 @@ const NavBar = () => {
           </div>
         </Box>
       </AppBar>
-      )
-      }
     </>
   )
 };
