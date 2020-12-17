@@ -1,6 +1,6 @@
 # Shlack
 
-Schlack is a communication platform designed for business. User's have the ability to access a persistent chat room, create channels, and direct message other team members.
+Shlack is a communication platform designed for business. User's have the ability to access a persistent chat room, create channels, and direct message other team members.
 
 Check out the app: [Live Demo](https://master.d11hr0s58u56b0.amplifyapp.com/login)
 
