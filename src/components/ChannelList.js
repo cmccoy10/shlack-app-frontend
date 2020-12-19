@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from "@material-ui/core/styles";
-import { IconButton, Typography, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField, Grid, List, ListItem, ListItemText, Divider} from "@material-ui/core";
+import { IconButton, Typography, Button, Box, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField, Grid, List, ListItem, ListItemText, Divider} from "@material-ui/core";
 import { useSelector } from 'react-redux';
 import AddIcon from '@material-ui/icons/Add';
 import { useDispatch } from 'react-redux';
@@ -17,14 +17,16 @@ const useStyles = makeStyles((theme) => ({
   },
   root: {
     width: '100%',
-    maxWidth: 360,
+    // maxWidth: 360,
   },
   channelDiv: {
-    height: "5vh"
+    height: "5vh",
+    // display: "flex",
+    // flexDirection: "column",
   },
   channelText: {
     color: "white",
-    width: "17vw",
+    // width: "100%",
     height: "4vh"
   },
   addIcon: {
@@ -161,10 +163,14 @@ const ChannelList = () => {
           {channels.map(channel => {
             return (
               <ListItem button key={channel.id} onClick={() => joinChannel(channel.id)} className={classes.channelDiv} >
-                <Link to={`/channels/${channel.id}`} className={classes.navLink}>
-                  <ListItemText className={classes.channelText} primary={`# ${channel.title}`} />
-                  <Divider/>
-                </Link>
+                <Box>
+                    <Link to={`/channels/${channel.id}`} className={classes.navLink}>
+                    <div className={classes.channelText}>
+                        {`# ${channel.title}`}
+                    </div>
+                    </Link>
+                </Box>
+                <Divider/>
               </ListItem>
             )
           })}

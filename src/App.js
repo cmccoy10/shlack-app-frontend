@@ -15,6 +15,8 @@ import { loadToken } from './store/actions/authentication';
 import SocketContext from './SocketContext';
 import { addMessage } from './store/actions/channelMessages';
 import { addJoinedChannel } from "./store/actions/channel";
+import { Route } from 'react-router-dom';
+
 
 const App = ({ needLogin, loadToken, socket }) => {
   const [loaded, setLoaded] = useState(false);

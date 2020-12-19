@@ -15,7 +15,11 @@ const useStyles = makeStyles((theme) => ({
     borderTop: "thin solid #45515f",
     borderBottom: "thin solid #45515f",
     height: "5em",
-    paddingLeft: "1em"
+    paddingLeft: "1em",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center"
   }
 }));
 
@@ -23,15 +27,15 @@ const MainLeftPanel = () => {
   const classes = useStyles();
   return (
     <div className={classes.sidePanel} >
-      <Grid container direction="row" justify="flex-start" alignItems="center" className={classes.panelHeader}>
+      <Box className={classes.panelHeader}>
         <Typography variant="h5" color="primary" fontWeight="800" >Shlack</Typography>
-      </Grid>
-      <Grid container>
+      </Box>
+      <Box>
         <ChannelList />
-      </Grid>
-      <Grid container>
+      </Box>
+      {/* <Box>
         <GroupList />
-      </Grid>
+      </Box> */}
     </div>
   );
 };
