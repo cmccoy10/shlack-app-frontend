@@ -5,8 +5,10 @@ export const REMOVE_TOKEN = 'shlack/authentication/REMOVE_TOKEN';
 export const USER_ID = "shlack/authentication/USER_ID"
 export const USER_USERNAME = "shlack/authentication/USER_USERNAME";
 export const USER_IMG = "shlack/authentication/USER_IMG";
+export const LOGOUT_USER = "shlack/authentication/LOGOUT_USER"
 
 export const removeToken = (token) => ({ type: REMOVE_TOKEN });
+export const logoutUser = () => ({ type: LOGOUT_USER });
 export const setToken = (token) => ({ type: SET_TOKEN, token });
 
 export const loadToken = () => async (dispatch) => {
@@ -60,6 +62,10 @@ export const logout = () => async (dispatch, getState) => {
 
   if (response.ok) {
     window.localStorage.removeItem(TOKEN_KEY);
+    window.localStorage.removeItem(USER_ID);
+    window.localStorage.removeItem(USER_USERNAME);
+    window.localStorage.removeItem(USER_IMG);
+    dispatch(logoutUser())
     dispatch(removeToken());
   }
 };
