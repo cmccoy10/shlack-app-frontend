@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
+
 .navLink {
     text-decoration: none;
     color: rgb(203,207,211);
@@ -9,6 +11,7 @@
     display: flex;
     align-items: center;
     padding-left: 1.5em;
+    font-family: 'Lato', sans-serif;
 }
 
 .channelTitle {

@@ -6,8 +6,12 @@ import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
   messageBox: {
-    marginLeft: "2em",
-    minHeight: "auto"
+    paddingLeft: "2em",
+    minHeight: "auto",
+    cursor: "",
+    "&:hover": {
+        background: "#f8f8f8"
+    },
   },
   messageContent: {
     padding: ".3em"

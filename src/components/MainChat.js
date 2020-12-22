@@ -16,7 +16,8 @@ import { USER_ID } from '../store/actions/authentication';
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
     width: "100%",
-    height: "100%"
+    height: "100%",
+    background: "#ffffff",
   },
   outerMessageContainer: {
     height: "62vh",
