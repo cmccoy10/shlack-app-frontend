@@ -21,9 +21,11 @@ const useStyles = makeStyles((theme) => ({
     // maxWidth: 360,
   },
   channelDiv: {
-    height: "5vh",
+    height: "2em",
     cursor: "pointer",
-    paddingLeft: "1em"
+    "&:hover": {
+        background: "#4A5664"
+    },
   },
   channelText: {
     color: "white",
@@ -166,7 +168,7 @@ const ChannelList = () => {
           {channels.map(channel => {
             return (
               <Box key={channel.id} onClick={() => joinChannel(channel.id)} className={classes.channelDiv} >
-                <NavLink to={`/channels/${channel.id}`} className="navLink">
+                <NavLink to={`/channels/${channel.id}`} className="navLink" activeStyle={{background: "#6698C8"}}>
                     <span>#</span>
                     <span className="channelTitle">{`${channel.title}`}</span>
                 </NavLink>
