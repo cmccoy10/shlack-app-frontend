@@ -6,7 +6,8 @@ import AddIcon from '@material-ui/icons/Add';
 import { useDispatch } from 'react-redux';
 import { getChannels, setCurrentChannel, createChannel } from '../store/actions/channel';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+import "./Styles/ChannelList.css";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -21,8 +22,8 @@ const useStyles = makeStyles((theme) => ({
   },
   channelDiv: {
     height: "5vh",
-    // display: "flex",
-    // flexDirection: "column",
+    cursor: "pointer",
+    paddingLeft: "1em"
   },
   channelText: {
     color: "white",
@@ -33,7 +34,9 @@ const useStyles = makeStyles((theme) => ({
     color: "white"
   },
   navLink: {
-    textDecoration: "none"
+    textDecoration: "none",
+    color: "white",
+    height: "4vh"
   },
   formContainer: {
     position: "absolute",
@@ -162,16 +165,12 @@ const ChannelList = () => {
         <List component="nav" className={classes.root} aria-label="mailbox folders">
           {channels.map(channel => {
             return (
-              <ListItem button key={channel.id} onClick={() => joinChannel(channel.id)} className={classes.channelDiv} >
-                <Box>
-                    <Link to={`/channels/${channel.id}`} className={classes.navLink}>
-                    <div className={classes.channelText}>
-                        {`# ${channel.title}`}
-                    </div>
-                    </Link>
-                </Box>
-                <Divider/>
-              </ListItem>
+              <Box key={channel.id} onClick={() => joinChannel(channel.id)} className={classes.channelDiv} >
+                <NavLink to={`/channels/${channel.id}`} className="navLink">
+                    <span>#</span>
+                    <span className="channelTitle">{`${channel.title}`}</span>
+                </NavLink>
+              </Box>
             )
           })}
         </List>

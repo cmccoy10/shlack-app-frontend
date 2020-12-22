@@ -1,0 +1,11 @@
+.navLink {
+    text-decoration: none;
+    color: rgb(203,207,211);
+    height: 2em;
+    font-size: 1.1em;
+    font-weight: 400;
+}
+
+.channelTitle {
+    margin-left: .6em;
+}
