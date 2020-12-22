@@ -16,13 +16,29 @@ import SocketContext from './SocketContext';
 import { addMessage } from './store/actions/channelMessages';
 import { addJoinedChannel } from "./store/actions/channel";
 import { Route } from 'react-router-dom';
+import { baseUrl } from './config/config';
+import io from "socket.io-client";
 
 
-const App = ({ needLogin, loadToken, socket }) => {
+
+
+const App = ({ needLogin, loadToken }) => {
   const [loaded, setLoaded] = useState(false);
   const currentChannel = useSelector(state => state.channel.currentChannel);
   const joinedChannels = useSelector(state => state.channel.joinedChannels);
   const dispatch = useDispatch();
+
+
+  let socket = io.connect(baseUrl);
+
+  useEffect(() => {
+    socket.on('error', (error) => {
+        console.error(error);
+      });
+    socket = io.connect(baseUrl);
+  }, [currentChannel])
+
+
 
   // If current channel changes, it sends a join message to the server
   useEffect(() => {
