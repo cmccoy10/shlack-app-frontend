@@ -14,11 +14,10 @@ import Main from './components/Main';
 import { loadToken } from './store/actions/authentication';
 import SocketContext from './SocketContext';
 import { addMessage } from './store/actions/channelMessages';
-import { addJoinedChannel } from "./store/actions/channel";
+import { addJoinedChannel, getChannels, setCurrentChannel } from "./store/actions/channel";
 import { Route } from 'react-router-dom';
 import { baseUrl } from './config/config';
 import io from "socket.io-client";
-
 
 
 
@@ -37,7 +36,6 @@ const App = ({ needLogin, loadToken }) => {
       });
     socket = io.connect(baseUrl);
   }, [currentChannel])
-
 
 
   // If current channel changes, it sends a join message to the server
@@ -77,9 +75,16 @@ const App = ({ needLogin, loadToken }) => {
     loadToken();
   }, []);
 
+  useEffect(() => {
+    dispatch(getChannels());
+    console.log("GOT CHANNELS");
+  }, []);
+
+
   if (!loaded) {
     return null;
   }
+
   return (
   <BrowserRouter>
     <CssBaseline />
@@ -88,9 +93,9 @@ const App = ({ needLogin, loadToken }) => {
       <Switch>
         <ProtectedRoute path='/login' exact={true} needLogin={needLogin} component={LoginForm} />
         <ProtectedRoute path='/signup' exact={true} needLogin={needLogin} component={SignUpForm} />
-        <PrivateRoute path="/" needLogin={needLogin} component={Main} />
-        <PrivateRoute path="/channels/:id" needLogin={needLogin} component={Main} />
-        <PrivateRoute path="/groups/:id" needLogin={needLogin} component={Main} />
+        <PrivateRoute path="/" socket={socket} needLogin={needLogin} component={Main} />
+        {/* <PrivateRoute path="/channels/:id" needLogin={needLogin} component={Main} /> */}
+        {/* <PrivateRoute path="/groups/:id" needLogin={needLogin} component={Main} /> */}
         <Redirect to="/" needLogin={needLogin} component={Main}/>
       </Switch>
       </SocketContext.Provider>

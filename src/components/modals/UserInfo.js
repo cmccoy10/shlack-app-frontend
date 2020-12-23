@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Avatar, Popover, Box, List, Button, Typography, Divider, Badge } from "@material-ui/core";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
-import { logout } from "../../store/actions/authentication";
+import { logout, USER_ID } from "../../store/actions/authentication";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -25,8 +25,8 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     small: {
-        width: theme.spacing(4),
-        height: theme.spacing(4),
+        width: theme.spacing(3.5),
+        height: theme.spacing(3.5),
         cursor: "pointer",
     },
     altSmall: {
@@ -87,7 +87,7 @@ const StyledBadge = withStyles((theme) => ({
     badge: {
       backgroundColor: '#44b700',
       color: '#44b700',
-      boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+      boxShadow: `0 0 0 2px #2c3849`,
       '&::after': {
         position: 'absolute',
         top: 0,
@@ -115,6 +115,7 @@ const UserInfo = ({ imgUrl }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const users = useSelector(state => state.user.users);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -130,6 +131,18 @@ const UserInfo = ({ imgUrl }) => {
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
+  const userId = Number(localStorage.getItem(USER_ID));
+  let user;
+
+  if (!users.length) {
+      return null
+  } else {
+      users.forEach((value) => {
+        if (value.id === userId) {
+            return user = value;
+        }
+      })
+  }
 
   return (
     <div >
@@ -166,20 +179,24 @@ const UserInfo = ({ imgUrl }) => {
       >
         <Box className={classes.popover}>
             <Box className={classes.userColumn}>
-                <Avatar className={classes.avatar} src={imgUrl} />
+                <Avatar className={classes.avatar} variant="rounded" src={imgUrl} />
+                {user ?
                 <Box className={classes.userInfo}>
                     <Box>
-                        {/* <Typography>{userFullName}</Typography> */}
+                        <Typography>{user.fullName}</Typography>
                     </Box>
                     <Box>
-                        {/* <Typography>{user.email}</Typography> */}
+                        <Typography>{user.email}</Typography>
                     </Box>
                 </Box>
+                :
+                null
+                }
             </Box>
             <Divider />
             <Box className={classes.popoverList}>
                 <Box className={classes.popoverOption} onClick={handleLogout}>
-                    <Typography>Logout</Typography>
+                    <Typography>Sign out</Typography>
                 </Box>
             </Box>
         </Box>

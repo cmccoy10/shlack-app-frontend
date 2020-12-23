@@ -19,7 +19,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import CloseIcon from '@material-ui/icons/Close';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { logout } from '../store/actions/authentication';
+import { logout, USER_ID } from '../store/actions/authentication';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
@@ -96,6 +96,7 @@ const MainBanner = (props) => {
   const [inputTopic, setInputTopic] = React.useState('');
   const [member, setMember] = React.useState('');
   const [open, setOpen] = React.useState(false);
+  const userId = Number(localStorage.getItem(USER_ID))
 
 
 
@@ -136,7 +137,6 @@ const MainBanner = (props) => {
     }))
     setDeleteFormDisplay(false);
   }
-////////////////
   const handleMemberInputChange = (event) => {
     setMember(Number(event.target.value) || '');
   };
@@ -155,7 +155,6 @@ const MainBanner = (props) => {
     }));
     handleMemberFormClose();
   }
-////////////////
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
@@ -201,7 +200,7 @@ const MainBanner = (props) => {
       <List>
         <ListItem >
           <ListItemIcon>
-            <IconButton backgroundColor="white" onClick={handleMemberFormClick}>
+            <IconButton disabled={currentChannel.ownerId !== userId} backgroundColor="white" onClick={handleMemberFormClick}>
               <PersonAddIcon/>
             </IconButton>
           </ListItemIcon>
@@ -209,7 +208,7 @@ const MainBanner = (props) => {
         </ListItem>
         <ListItem >
           <ListItemIcon>
-            <IconButton backgroundColor="white" onClick={handleChannelForm}>
+            <IconButton disabled={currentChannel.ownerId !== userId} backgroundColor="white" onClick={handleChannelForm}>
               <EditIcon/>
             </IconButton>
           </ListItemIcon>
@@ -217,7 +216,7 @@ const MainBanner = (props) => {
         </ListItem>
         <ListItem >
           <ListItemIcon>
-            <IconButton backgroundColor="white" onClick={handleDeleteForm}>
+            <IconButton disabled={currentChannel.ownerId !== userId} backgroundColor="white" onClick={handleDeleteForm}>
               <DeleteIcon/>
             </IconButton>
           </ListItemIcon>
@@ -235,13 +234,9 @@ const MainBanner = (props) => {
         </Menu>
       </List>
       <Divider />
-      <ListItem >
-          <ListItemIcon>
-            <Button color="secondary" onClick={handleLogOut}>Log Out</Button>
-          </ListItemIcon>
-        </ListItem>
     </div>
   );
+
 
   return (
     <Box >
@@ -299,25 +294,6 @@ const MainBanner = (props) => {
               <Typography>Click on a channel on the left panel.</Typography>
             </Box>
           </Box>
-        </Box>
-        <Box className={classes.buttons}>
-          {['right'].map((anchor) => (
-            <Box key={anchor} display="flex" alignContent="center">
-              <Box display="flex" alignContent="center">
-                <IconButton backgroundColor="white" onClick={toggleDrawer(anchor, true)}>
-                  <InfoIcon/>
-                </IconButton>
-              </Box>
-              <SwipeableDrawer
-                anchor={anchor}
-                open={state[anchor]}
-                onClose={toggleDrawer(anchor, false)}
-                onOpen={toggleDrawer(anchor, true)}
-              >
-                {list(anchor)}
-              </SwipeableDrawer>
-            </Box>
-          ))}
         </Box>
       </Grid>
       }

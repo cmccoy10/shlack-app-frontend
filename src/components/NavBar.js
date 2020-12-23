@@ -104,15 +104,6 @@ const NavBar = () => {
         <Box display="flex" justifyContent="flex-end" >
           <div className={classes.root1}>
               <UserInfo imgUrl={imgUrl}/>
-            {/* <Avatar
-            variant="rounded"
-            className={classes.small}
-            alt="user icon"
-            src={imgUrl}
-            ref={anchorRef}
-            aria-controls={open ? 'menu-list-grow' : undefined}
-            aria-haspopup="true"
-            /> */}
           </div>
         </Box>
       </AppBar>
