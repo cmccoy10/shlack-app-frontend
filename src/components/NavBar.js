@@ -7,6 +7,7 @@ import { removeToken, USER_IMG } from '../store/actions/authentication';
 import "./Styles/NavBar.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStroopwafel, faAsterisk } from '@fortawesome/free-solid-svg-icons'
+import UserInfo from './modals/UserInfo';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -102,7 +103,8 @@ const NavBar = () => {
       <AppBar elevation={0} position="static" className={classes.navbar}>
         <Box display="flex" justifyContent="flex-end" >
           <div className={classes.root1}>
-            <Avatar
+              <UserInfo imgUrl={imgUrl}/>
+            {/* <Avatar
             variant="rounded"
             className={classes.small}
             alt="user icon"
@@ -110,7 +112,7 @@ const NavBar = () => {
             ref={anchorRef}
             aria-controls={open ? 'menu-list-grow' : undefined}
             aria-haspopup="true"
-            />
+            /> */}
           </div>
         </Box>
       </AppBar>
