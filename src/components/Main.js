@@ -39,7 +39,6 @@ const Main = ({ needLogin }) => {
 
   useEffect(() => {
     dispatch(getChannels());
-    console.log("GOT CHANNELS");
   }, []);
 
   useEffect(() => {
@@ -75,6 +74,7 @@ const Main = ({ needLogin }) => {
         <Route exact path="/">
             <MainBanner className={classes.banner}/>
         </Route>
+        <Redirect to="/" needLogin={needLogin}/>
       </Box>
       <Box>
       </Box>
