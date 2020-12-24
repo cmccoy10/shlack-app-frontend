@@ -75,9 +75,9 @@ const ChannelList = () => {
   const [title, setTitle] = useState("");
   const [topic, setTopic] = useState("");
 
-  useEffect(() => {
-    dispatch(getChannels());
-  }, [dispatch]);
+//   useEffect(() => {
+//     dispatch(getChannels());
+//   }, [dispatch]);
 
   const [channelFormDisplay, setChannelFormDisplay] = React.useState(false);
 

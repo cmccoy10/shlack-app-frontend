@@ -75,13 +75,9 @@ const App = ({ needLogin, loadToken }) => {
     loadToken();
   }, []);
 
-  useEffect(() => {
-    dispatch(getChannels());
-    console.log("GOT CHANNELS");
-  }, []);
-
 
   if (!loaded) {
+      console.log("NOT LOADED")
     return null;
   }
 
@@ -93,7 +89,7 @@ const App = ({ needLogin, loadToken }) => {
       <Switch>
         <ProtectedRoute path='/login' exact={true} needLogin={needLogin} component={LoginForm} />
         <ProtectedRoute path='/signup' exact={true} needLogin={needLogin} component={SignUpForm} />
-        <PrivateRoute path="/" socket={socket} needLogin={needLogin} component={Main}/>
+        <PrivateRoute path="/" needLogin={needLogin} component={Main}/>
         <Redirect to="/" needLogin={needLogin} component={Main}/>
       </Switch>
       </SocketContext.Provider>

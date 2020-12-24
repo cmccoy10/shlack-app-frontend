@@ -37,6 +37,10 @@ const Main = ({ needLogin }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(getChannels());
+    console.log("GOT CHANNELS");
+  }, []);
 
   useEffect(() => {
     if (firstChannel !== undefined && firstChannel.length && !currentChannel) {
