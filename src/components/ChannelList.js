@@ -75,9 +75,9 @@ const ChannelList = () => {
   const [title, setTitle] = useState("");
   const [topic, setTopic] = useState("");
 
-//   useEffect(() => {
-//     dispatch(getChannels());
-//   }, [dispatch]);
+  useEffect(() => {
+    dispatch(getChannels());
+  }, [dispatch]);
 
   const [channelFormDisplay, setChannelFormDisplay] = React.useState(false);
 
@@ -168,7 +168,7 @@ const ChannelList = () => {
           {channels.map(channel => {
             return (
               <Box key={channel.id} onClick={() => joinChannel(channel.id)} className={classes.channelDiv} >
-                <NavLink to={`/channels/${channel.id}`} className="navLink" activeStyle={{background: "#6698C8"}}>
+                <NavLink to={`/channels/${channel.id}`} className="channelNavLink" activeStyle={{background: "#6698C8"}}>
                     <span>#</span>
                     <span className="channelTitle">{`${channel.title}`}</span>
                 </NavLink>

@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     background: "white",
     borderTop: "thin solid #45515f",
     borderBottom: "thin solid #45515f",
-    height: "100%",
+    height: "5em",
     borderBottom: "thin solid #45515f",
   },
   panelHeader: {
@@ -289,11 +289,6 @@ const MainBanner = (props) => {
 
       <Grid container className={classes.bannerContainer} >
         <Box flexGrow={1}>
-          <Box className={classes.channel} display="flex" justifyContent="center">
-            <Box>
-              <Typography>Click on a channel on the left panel.</Typography>
-            </Box>
-          </Box>
         </Box>
       </Grid>
       }
