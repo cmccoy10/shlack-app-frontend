@@ -41,8 +41,6 @@ const Main = ({ needLogin }) => {
   useEffect(() => {
     if (firstChannel !== undefined && firstChannel.length && !currentChannel) {
         dispatch(setCurrentChannel(firstChannel[0].id))
-        console.log("Current channel", currentChannel)
-        return <Redirect to={`/channels/${firstChannel[0].id}`}/>
     }
   }, );
 

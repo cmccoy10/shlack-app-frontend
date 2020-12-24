@@ -93,9 +93,7 @@ const App = ({ needLogin, loadToken }) => {
       <Switch>
         <ProtectedRoute path='/login' exact={true} needLogin={needLogin} component={LoginForm} />
         <ProtectedRoute path='/signup' exact={true} needLogin={needLogin} component={SignUpForm} />
-        <PrivateRoute path="/" socket={socket} needLogin={needLogin} component={Main} />
-        {/* <PrivateRoute path="/channels/:id" needLogin={needLogin} component={Main} /> */}
-        {/* <PrivateRoute path="/groups/:id" needLogin={needLogin} component={Main} /> */}
+        <PrivateRoute path="/" socket={socket} needLogin={needLogin} component={Main}/>
         <Redirect to="/" needLogin={needLogin} component={Main}/>
       </Switch>
       </SocketContext.Provider>
