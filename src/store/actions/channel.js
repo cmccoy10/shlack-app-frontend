@@ -58,15 +58,7 @@ export const createChannel = data => async (dispatch, getState) => {
   if (response.ok) {
       dispatch(getChannels());
       const channel = await response.json();
-      console.log("channel", channel)
-        dispatch(setCurrentChannel(channel.id));
-    //   const channelList = getState().channel.channelList;
-    //   if (!channelList.length) {
-    //     const channel = response.json();
-    //     dispatch(setCurrentChannel(channel.id));
-    //   } else {
-    //     dispatch(setCurrentChannel(channelList[0].id));
-    //   }
+      dispatch(setCurrentChannel(channel.id));
   }
 }
 

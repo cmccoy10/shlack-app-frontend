@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
 const ChannelList = () => {
 
   const dispatch = useDispatch();
-  // const token = useSelector((state) => state.authentication.token);
+  const currentChannel = useSelector((state) => state.channel.currentChannel);
   const formVisible = useSelector((state) => state.channel.formVisible);
   const channels = useSelector((state) => state.channel.channelList);
   const [title, setTitle] = useState("");
@@ -77,7 +77,7 @@ const ChannelList = () => {
 
   useEffect(() => {
     dispatch(getChannels());
-  }, [dispatch]);
+  }, [currentChannel, dispatch]);
 
   const [channelFormDisplay, setChannelFormDisplay] = React.useState(false);
 
@@ -168,10 +168,18 @@ const ChannelList = () => {
           {channels.map(channel => {
             return (
               <Box key={channel.id} onClick={() => joinChannel(channel.id)} className={classes.channelDiv} >
-                <NavLink to={`/channels/${channel.id}`} className="channelNavLink" activeStyle={{background: "#6698C8"}}>
-                    <span>#</span>
-                    <span className="channelTitle">{`${channel.title}`}</span>
-                </NavLink>
+              {currentChannel == channel.id ?
+                  <NavLink to={`/channels/${channel.id}`} className="activeChannelNavLink">
+                      <span>#</span>
+                      <span className="channelTitle">{`${channel.title}`}</span>
+                  </NavLink>
+
+                :
+                  <NavLink to={`/channels/${channel.id}`} className="channelNavLink">
+                      <span>#</span>
+                      <span className="channelTitle">{`${channel.title}`}</span>
+                  </NavLink>
+              }
               </Box>
             )
           })}
