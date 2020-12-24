@@ -101,8 +101,10 @@ const MainBanner = (props) => {
 
 
   useEffect(() => {
-    dispatch(getCurrentChannel(channelId))
-    dispatch(getUsers())
+      if (channelId) {
+          dispatch(getCurrentChannel(channelId))
+          dispatch(getUsers())
+      }
   }, [channelId, dispatch]);
 
   const handleChannelTitleChange = e => setInputTitle(e.target.value)
@@ -240,7 +242,7 @@ const MainBanner = (props) => {
 
   return (
     <Box >
-      {currentChannel ?
+      {currentChannel && channelId ?
       <Grid container className={classes.bannerContainer} >
         <Box className={classes.channel} flexGrow={1} justifyContent="center" alignItems="center">
           <Box justifyContent="center" className={classes.channelContainer}>

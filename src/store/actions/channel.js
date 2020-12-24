@@ -56,8 +56,17 @@ export const createChannel = data => async (dispatch, getState) => {
   });
 
   if (response.ok) {
-    // dispatch(hideForm());
-    dispatch(getChannels());
+      dispatch(getChannels());
+      const channel = await response.json();
+      console.log("channel", channel)
+        dispatch(setCurrentChannel(channel.id));
+    //   const channelList = getState().channel.channelList;
+    //   if (!channelList.length) {
+    //     const channel = response.json();
+    //     dispatch(setCurrentChannel(channel.id));
+    //   } else {
+    //     dispatch(setCurrentChannel(channelList[0].id));
+    //   }
   }
 }
 
@@ -127,6 +136,13 @@ export const deleteChannel = data => async (dispatch, getState) => {
   if (response.ok) {
     const channelList = await response.json();
     dispatch(load(channelList));
+
+    if (channelList.length) {
+        dispatch(setCurrentChannel(channelList[0].id));
+    } else {
+        dispatch(setCurrentChannel(null));
+        dispatch(addCurrentChannel(null))
+    }
   }
 }
 
