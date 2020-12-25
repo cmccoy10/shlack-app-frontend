@@ -11,6 +11,8 @@ import { PrivateRoute } from '../util.js/route-util';
 import { getChannels, setCurrentChannel } from '../store/actions/channel';
 import { useEffect } from 'react';
 import { Redirect, Route } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faComments } from '@fortawesome/free-solid-svg-icons'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -32,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Main = ({ needLogin }) => {
+  const currentChannelId = useSelector(state => state.channel.currentChannel);
   const currentChannel = useSelector((state) => state.channel.oneChannel);
   const firstChannel = useSelector(state => state.channel.channelList)
   const classes = useStyles();
@@ -45,7 +48,7 @@ const Main = ({ needLogin }) => {
     if (firstChannel !== undefined && firstChannel.length && !currentChannel) {
         dispatch(setCurrentChannel(firstChannel[0].id))
     }
-  }, );
+  }, [currentChannelId]);
 
   if (!firstChannel) return null;
 
@@ -67,12 +70,26 @@ const Main = ({ needLogin }) => {
             )
         }}
         />
+        {currentChannelId ?
         <Route path="/channels/:id">
-            <MainBanner className={classes.banner}/>
-            <MainChat className={classes.mainChat}/>
+                <div>
+                    <MainBanner className={classes.banner}/>
+                    <MainChat className={classes.mainChat}/>
+                </div>
         </Route>
+            :
+        <Route path="/channels/:id">
+            <div className="altRightPanel">
+                <FontAwesomeIcon icon={faComments} size="6x"/>
+                <div className="altText">Create a Channel to start chatting!</div>
+            </div>
+        </Route>
+            }
         <Route exact path="/">
-            <MainBanner className={classes.banner}/>
+            <div className="altRightPanel">
+                <FontAwesomeIcon icon={faComments} size="6x"/>
+                <div className="altText">Create a Channel to start chatting!</div>
+            </div>
         </Route>
         <Redirect to="/" needLogin={needLogin}/>
       </Box>
