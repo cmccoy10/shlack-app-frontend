@@ -48,7 +48,7 @@ const Main = ({ needLogin }) => {
     if (firstChannel !== undefined && firstChannel.length && !currentChannel) {
         dispatch(setCurrentChannel(firstChannel[0].id))
     }
-  }, [currentChannelId]);
+  }, );
 
   if (!firstChannel) return null;
 
@@ -64,27 +64,26 @@ const Main = ({ needLogin }) => {
         path="/"
         render={() => {
             return (
-                !currentChannel && firstChannel.length ?
+                currentChannelId && firstChannel.length ?
                 <Redirect to={`/channels/${firstChannel[0].id}`} /> :
                 <Redirect to="/" />
             )
         }}
         />
+        <Route path="/channels/:id">
         {currentChannelId ?
-        <Route path="/channels/:id">
-                <div>
-                    <MainBanner className={classes.banner}/>
-                    <MainChat className={classes.mainChat}/>
-                </div>
-        </Route>
+            <div>
+                <MainBanner className={classes.banner}/>
+                <MainChat className={classes.mainChat}/>
+            </div>
             :
-        <Route path="/channels/:id">
             <div className="altRightPanel">
                 <FontAwesomeIcon icon={faComments} size="6x"/>
                 <div className="altText">Create a Channel to start chatting!</div>
             </div>
+        }
         </Route>
-            }
+
         <Route exact path="/">
             <div className="altRightPanel">
                 <FontAwesomeIcon icon={faComments} size="6x"/>

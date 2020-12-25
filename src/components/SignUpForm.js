@@ -131,6 +131,7 @@ const SignUpForm = () => {
                 <Box className="formHeader">
                     <div>Sign up for Shlack</div>
                 </Box>
+
             </Box>
             <Box>
                 <Box className={classes.formContainer}>

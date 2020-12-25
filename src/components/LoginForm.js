@@ -67,17 +67,25 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "1.2em",
     fontWeight: "700"
   },
+  errorFont: {
+    color: "red"
+  },
 }));
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState([]);
   const token = useSelector((state) => state.authentication.token);
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
-    // e.preventDefault();
-    dispatch(login(email, password));
+
+  const handleSubmit = async (e) => {
+    const response = await dispatch(login(email, password));
+    if (response) {
+        console.log(response)
+        setErrors(response.error.errors);
+    }
   };
 
   const handleDemoSubmit = (e) => {
@@ -128,6 +136,17 @@ const LoginForm = () => {
                     <Box className="formHeader">
                         <div>Sign in to Shlack</div>
                     </Box>
+                    {errors ?
+                    <ul className={classes.errorFont}>
+                        {errors.map(error => {
+                            return (
+                                <li>{error}</li>
+                            )
+                        })}
+                    </ul>
+                    :
+                    null
+                    }
                 </Box>
                 <Box>
                     <Box className={classes.formContainer}>
