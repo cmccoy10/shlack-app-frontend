@@ -61,6 +61,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MainChat = () => {
   const currentChannel = useSelector(state => state.channel.currentChannel);
+  const oneChannel = useSelector(state => state.channel.oneChannel);
   const messages = useSelector(state => state.channelMessages[currentChannel]);
   const dispatch = useDispatch();
   const messageElement = useRef(null);
@@ -105,6 +106,14 @@ const MainChat = () => {
     onSend(body);
     setBody("");
   };
+
+  const handleEnter = async (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        onSend(body);
+        setBody("");
+    }
+  }
 
   const onSend = body => {
     const userId = window.localStorage.getItem(USER_ID)
@@ -158,6 +167,8 @@ const MainChat = () => {
                   className={classes.margin}
                   onChange={onChange}
                   value={body}
+                  placeholder={`Message ${oneChannel.title}`}
+                  onKeyDown={handleEnter}
                 />
               </Grid >
               <Grid item className={classes.sendButton}>
