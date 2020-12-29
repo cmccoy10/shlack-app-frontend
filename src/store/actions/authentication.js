@@ -31,7 +31,10 @@ export const signUp = (user) => async (dispatch) => {
     window.localStorage.setItem(USER_USERNAME, username);
     window.localStorage.setItem(USER_IMG, imgUrl);
     dispatch(setToken(token));
-  }
+  } else {
+    const errors = await response.json();
+    return errors;
+}
 };
 //Testing
 export const login = (email, password) => async (dispatch) => {

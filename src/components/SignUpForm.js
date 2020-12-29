@@ -67,6 +67,9 @@ const useStyles = makeStyles((theme) => ({
         fontSize: "1.2em",
         fontWeight: "700"
       },
+      errorFont: {
+        color: "red"
+      },
 }));
 
 const SignUpForm = () => {
@@ -76,6 +79,7 @@ const SignUpForm = () => {
   const [imgUrl, setImgUrl] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [errors, setErrors] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -83,7 +87,7 @@ const SignUpForm = () => {
     callback(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     if (!imgUrl) setImgUrl("https://icon-library.com/images/generic-profile-icon/generic-profile-icon-8.jpg")
     const newUser = {
       fullName,
@@ -93,7 +97,13 @@ const SignUpForm = () => {
       password,
       confirmPassword,
     };
-    dispatch(signUp(newUser));
+    const response = await dispatch(signUp(newUser));
+    if (response) {
+        console.log(response)
+        setErrors(response.error.errors);
+    } else {
+        console.log("not response", response)
+    }
   };
 
   const classes = useStyles();
@@ -131,7 +141,17 @@ const SignUpForm = () => {
                 <Box className="formHeader">
                     <div>Sign up for Shlack</div>
                 </Box>
-
+                {errors ?
+                <ul className={classes.errorFont}>
+                    {errors.map(error => {
+                        return (
+                            <li>{error.msg}</li>
+                        )
+                    })}
+                </ul>
+                :
+                null
+                }
             </Box>
             <Box>
                 <Box className={classes.formContainer}>
