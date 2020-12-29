@@ -83,7 +83,6 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     const response = await dispatch(login(email, password));
     if (response) {
-        console.log(response)
         setErrors(response.error.errors);
     }
   };
@@ -140,7 +139,7 @@ const LoginForm = () => {
                     <ul className={classes.errorFont}>
                         {errors.map(error => {
                             return (
-                                <li>{error}</li>
+                                <li>{error.msg}</li>
                             )
                         })}
                     </ul>
