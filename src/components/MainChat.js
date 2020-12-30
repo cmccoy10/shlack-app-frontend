@@ -137,6 +137,10 @@ const MainChat = () => {
     return null;
   }
 
+  if (!oneChannel) {
+    return null;
+  }
+
   const reversedMessages = []
   for (let i = messages.length - 1; i >= 0; i--) {
       reversedMessages.push(messages[i])

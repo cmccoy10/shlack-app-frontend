@@ -26,6 +26,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { getUsers } from '../store/actions/user';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
+import "./Styles/MainBanner.css"
+
 
 const useStyles = makeStyles((theme) => ({
   bannerContainer: {
@@ -54,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-start"
   },
   channelContainer: {
-    paddingLeft: "1em"
+    paddingLeft: "1.3em"
   },
   closeButton: {
     marginLeft: "8em"
@@ -80,9 +82,6 @@ const useStyles = makeStyles((theme) => ({
     width: '.5em',
     height: ".5em"
   },
-  channelTitle: {
-      fontWeight: "700"
-  }
 }));
 
 const MainBanner = (props) => {
@@ -246,11 +245,11 @@ const MainBanner = (props) => {
       <Grid container className={classes.bannerContainer} >
         <Box className={classes.channel} flexGrow={1} justifyContent="center" alignItems="center">
           <Box justifyContent="center" className={classes.channelContainer}>
-            <Box>
-              <Typography className={classes.channelTitle} variant="subtitle1">{currentChannel.title}</Typography>
+            <Box className="channelBannerTitle">
+              {`#${currentChannel.title}`}
             </Box>
-            <Box>
-              <Typography variant="subtitle2">{currentChannel.topic}</Typography>
+            <Box className="channelBannerTopic">
+              {currentChannel.topic}
             </Box>
           </Box>
         </Box>
