@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   messageImg: {
     marginRight: ".5em",
     display: "flex",
-    alignItems: "center",
+    marginTop: ".2em",
   },
   messageBody: {
     minHeight: "auto"
@@ -47,7 +47,7 @@ const Message = (props) => {
             </Box>
           </Box>
           <Box>
-            <Typography >
+            <Typography className="messageBody">
               {message.body}
             </Typography>
           </Box>
