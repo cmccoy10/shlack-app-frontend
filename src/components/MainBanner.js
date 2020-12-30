@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
     borderBottom: "thin solid #45515f",
     height: "5em",
     borderBottom: "thin solid #45515f",
+    width: "100%"
   },
   panelHeader: {
     background: "#303E4D",

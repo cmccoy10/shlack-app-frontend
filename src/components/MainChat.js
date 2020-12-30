@@ -11,43 +11,44 @@ import { setMessages } from '../store/actions/channelMessages';
 import Message from './Message';
 import SendIcon from '@material-ui/icons/Send';
 import { USER_ID } from '../store/actions/authentication';
+import "./Styles/MainChat.css"
 
 
 const useStyles = makeStyles((theme) => ({
-  mainContainer: {
-    width: "100%",
-    height: "100%",
-    background: "#ffffff",
-  },
-  outerMessageContainer: {
-    height: "62vh",
-    overflow: "hidden",
-    position: "relative",
-    overflow: "hidden"
+//   mainContainer: {
+//     width: "100%",
+//     height: "100%",
+//     background: "#ffffff",
+//   },
+//   outerMessageContainer: {
+//     height: "62vh",
+//     overflow: "hidden",
+//     position: "relative",
+//     overflow: "hidden"
 
-  },
-  innerMessageContainer: {
-    display: "flex",
-    flexDirection: "column-reverse",
-    overflow: "scroll",
-    height: "100%",
-    width: "100%",
-    position:"absolute",
-  },
-  textContainer: {
-    height: "20vh",
-    width: "100%"
-  },
-  textBox: {
-    width: "95%",
-  },
+//   },
+//   innerMessageContainer: {
+//     display: "flex",
+//     flexDirection: "column-reverse",
+//     overflow: "scroll",
+//     height: "100%",
+//     width: "100%",
+//     position:"absolute",
+//   },
+//   textContainer: {
+//     height: "20vh",
+//     width: "100%"
+//   },
+//   textBox: {
+//     width: "95%",
+//   },
   sendButton: {
     width: "5%"
   },
-  innerTextContainer: {
-    height: "100%",
-    width: "100%"
-  },
+//   innerTextContainer: {
+//     height: "100%",
+//     width: "100%"
+//   },
   list: {
     width: 250,
   },
@@ -147,20 +148,20 @@ const MainChat = () => {
   }
 
   return (
-    <Grid container direction="column" className={classes.mainContainer}>
-      <Grid item className={classes.outerMessageContainer}>
-        <Box className={classes.innerMessageContainer}>
+    <div className="mediaMainContainer">
+      <div className="outerMessageContainer">
+        <Box className="innerMessageContainer">
           {reversedMessages.map(message => {
             return (
               <Message key={message.id} message={message}/>
             )
           })}
         </Box>
-      </Grid>
-      <Grid item className={classes.textContainer}>
+      </div>
+      <div className="textContainer">
           <form onSubmit={onSubmit}>
-            <Grid container className={classes.innerTextContainer} display="flex" direction="row" alignItems="center">
-              <Grid item className={classes.textBox} display="flex" direction="row">
+            <Box className="innerTextContainer">
+              <Box className="textBox">
                 <TextField
                   id="outlined-multiline-static"
                   multiline
@@ -174,16 +175,16 @@ const MainChat = () => {
                   placeholder={`Message ${oneChannel.title}`}
                   onKeyDown={handleEnter}
                 />
-              </Grid >
-              <Grid item className={classes.sendButton}>
+              </Box >
+              <Box className={classes.sendButton}>
                 <IconButton type="submit" backgroundColor="white" disabled={body === ""}>
                   <SendIcon />
                 </IconButton>
-              </Grid>
-              </Grid>
+              </Box>
+              </Box>
            </form>
-      </Grid>
-    </Grid>
+      </div>
+    </div>
   );
 };
 

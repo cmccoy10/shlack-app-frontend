@@ -16,20 +16,12 @@ import { faComments } from '@fortawesome/free-solid-svg-icons'
 
 
 const useStyles = makeStyles((theme) => ({
-  banner: {
-    height: "10%",
-    width: "80%"
-  },
   rightPanelParams: {
     width: "80vw",
     height: "100%",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-evenly"
-  },
-  mainChat: {
-    height: "60%",
-    width: "100%"
   },
 }))
 
@@ -53,7 +45,7 @@ const Main = ({ needLogin }) => {
   if (!firstChannel) return null;
 
   return (
-    <Box className="mainContainer">
+    <div className="mainContainer">
       <NavBar />
       <Box className="leftPanel">
         <MainLeftPanel />
@@ -72,9 +64,9 @@ const Main = ({ needLogin }) => {
         />
         <Route path="/channels/:id">
         {currentChannelId ?
-            <div>
-                <MainBanner className={classes.banner}/>
-                <MainChat className={classes.mainChat}/>
+            <div className="mediaContent">
+                <MainBanner className="banner"/>
+                <MainChat className="mainChat"/>
             </div>
             :
             <div className="altRightPanel">
@@ -94,7 +86,7 @@ const Main = ({ needLogin }) => {
       </Box>
       <Box>
       </Box>
-    </Box>
+    </div>
   );
 };
 

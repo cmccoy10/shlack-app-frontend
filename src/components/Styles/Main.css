@@ -2,8 +2,8 @@
 
 .mainContainer {
     display: grid;
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     grid-template-columns: 18em 1fr;
     grid-template-rows: 3em 1fr;
 }
@@ -18,9 +18,27 @@
     width: 100%;
     height: 100%;
     grid-column: 2/3;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+
+}
+
+.banner {
+    height: 100%;
+    width: 100%;
+    grid-row: 1/2;
+}
+
+.mainChat {
+    height: 100%;
+    width: 100%;
+    grid-row: 2/3;
+}
+
+.mediaContent {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-rows: 5em 1fr;
 }
 
 .MuiPaper-elevation4 {
