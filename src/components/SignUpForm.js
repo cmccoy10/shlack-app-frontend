@@ -88,12 +88,14 @@ const SignUpForm = () => {
   };
 
   const handleSubmit = async (e) => {
-    if (!imgUrl) setImgUrl("https://icon-library.com/images/generic-profile-icon/generic-profile-icon-8.jpg")
+
+    const reqImgUrl = imgUrl ? imgUrl : "https://icon-library.com/images/generic-profile-icon/generic-profile-icon-8.jpg";
+
     const newUser = {
       fullName,
       username,
       email,
-      imgUrl,
+      imgUrl: reqImgUrl,
       password,
       confirmPassword,
     };
