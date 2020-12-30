@@ -1,5 +1,6 @@
 import { apiUrl } from '../../config/config';
 import { USER_ID } from "../actions/authentication";
+import { TOKEN_KEY, USER_USERNAME, USER_IMG, logoutUser } from './authentication';
 export const HIDE_FORM = 'channel/authentication/HIDE_FORM';
 export const SHOW_FORM = 'channel/authentication/SHOW_FORM';
 export const LOAD = "shlack/channels/LOAD";
@@ -76,6 +77,13 @@ export const getChannels = () => async (dispatch, getState) => {
   if (response.ok) {
     const channelList = await response.json();
     dispatch(load(channelList));
+  } else {
+    window.localStorage.removeItem(TOKEN_KEY);
+    window.localStorage.removeItem(USER_ID);
+    window.localStorage.removeItem(USER_USERNAME);
+    window.localStorage.removeItem(USER_IMG);
+    dispatch(logoutUser())
+    window.location.href = "/"
   }
 }
 
