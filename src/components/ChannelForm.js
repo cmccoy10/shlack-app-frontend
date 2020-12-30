@@ -59,6 +59,19 @@ function ChannelForm(props) {
     setChannelFormDisplay(false);
   }
 
+//   const handleEnter = async (e) => {
+//       console.log("keypressed")
+//     if (e.key === "Enter" && !e.shiftKey) {
+//         console.log("enter pressed")
+//         const payload = {
+//             title,
+//             topic,
+//           };
+//           dispatch(createChannel(payload));
+//           setChannelFormDisplay(false);
+//     }
+//   }
+
   const updateProperty = (callback) => (e) => {
     callback(e.target.value);
   };
@@ -81,6 +94,7 @@ function ChannelForm(props) {
           fullWidth
           value={title}
           onChange={handleChannelTitleChange}
+        //   onKeyDown={handleEnter}
         />
         <TextField
           margin="dense"
@@ -90,6 +104,7 @@ function ChannelForm(props) {
           fullWidth
           value={topic}
           onChange={handleChannelTopicChange}
+        //   onKeyDown={handleEnter}
         />
       </DialogContent>
       <DialogActions>
