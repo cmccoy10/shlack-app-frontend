@@ -101,10 +101,9 @@ const SignUpForm = () => {
     };
     const response = await dispatch(signUp(newUser));
     if (response) {
-        console.log(response)
         setErrors(response.error.errors);
     } else {
-        console.log("not response", response)
+        // console.log("not response", response)
     }
   };
 

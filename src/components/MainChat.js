@@ -118,7 +118,7 @@ const MainChat = () => {
 
   const onSend = body => {
     const userId = window.localStorage.getItem(USER_ID)
-    console.log(`Sending message ${body} for ${`A user's name`} to ${currentChannel}`);
+    // console.log(`Sending message ${body} for ${`A user's name`} to ${currentChannel}`);
     socket.emit(currentChannel, {
       userId,
       body
