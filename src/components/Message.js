@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { AppBar, Toolbar, IconButton, Typography, Box, Avatar, Grid, Paper } from "@material-ui/core";
 import { useSelector } from 'react-redux';
 import moment from 'moment';
+import "./Styles/Message.css"
 
 const useStyles = makeStyles((theme) => ({
   messageBox: {
@@ -17,14 +18,9 @@ const useStyles = makeStyles((theme) => ({
     padding: ".3em"
   },
   messageImg: {
-    marginRight: ".5em"
-  },
-  messageFullName: {
-    paddingRight: ".3em"
-  },
-  messageDate:{
-    fontSize: ".8rem",
-    marginTop: ".25em"
+    marginRight: ".5em",
+    display: "flex",
+    alignItems: "center",
   },
   messageBody: {
     minHeight: "auto"
@@ -33,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Message = (props) => {
   const message = props.message;
-  const date = moment(message.createdAt).format('hh:mm:ss')
+  const date = moment(message.createdAt).format('LT');
   const classes = useStyles();
   return (
     <Box className={classes.messageBox} display="flex" justifyContent="flex-start">
@@ -42,16 +38,12 @@ const Message = (props) => {
           <Avatar variant="rounded" alt="user icon" src={message.imgUrl}/>
         </Box>
         <Box display="flex" flexDirection="column">
-          <Box display="flex" flexDirection="row">
-            <Box className={classes.messageFullName}>
-              <Typography fontWeight="fontWeightBold">
+          <Box display="flex" flexDirection="row" alignItems="flex-start">
+            <Box className="messageFullName">
                 {message.fullName}
-              </Typography>
             </Box>
-            <Box>
-              <Typography fontWeight="fontWeightLight" variant="subtitle2" className={classes.messageDate} >
-                {date.slice(0,5)}
-              </Typography>
+            <Box className="messageDate">
+                {date}
             </Box>
           </Box>
           <Box>
