@@ -13,6 +13,7 @@ import { useEffect } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faComments } from '@fortawesome/free-solid-svg-icons'
+import { getUsers } from '../store/actions/user';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -34,6 +35,7 @@ const Main = ({ needLogin }) => {
 
   useEffect(() => {
     dispatch(getChannels());
+    dispatch(getUsers());
   }, []);
 
   useEffect(() => {
