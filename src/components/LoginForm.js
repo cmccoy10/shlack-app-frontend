@@ -87,6 +87,15 @@ const LoginForm = () => {
     }
   };
 
+  const handleEnter = async (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+        const response = await dispatch(login(email, password));
+        if (response) {
+            setErrors(response.error.errors);
+        }
+    }
+  }
+
   const handleDemoSubmit = (e) => {
     dispatch(login("demo@example.com", "password"))
   }
@@ -160,6 +169,7 @@ const LoginForm = () => {
                             variant="outlined"
                             color="secondary"
                             className={classes.textfield}
+                            onKeyDown={handleEnter}
                         />
                         <TextField
                             type='password'
@@ -171,6 +181,7 @@ const LoginForm = () => {
                             variant="outlined"
                             color="secondary"
                             className={classes.textfield}
+                            onKeyDown={handleEnter}
                         />
                         <Box className={classes.buttonContainer}>
                             <Button onClick={handleSubmit} disableElevation className={classes.signInButton}>Sign In with Email</Button>

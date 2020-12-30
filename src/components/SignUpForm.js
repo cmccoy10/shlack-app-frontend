@@ -107,6 +107,27 @@ const SignUpForm = () => {
     }
   };
 
+  const handleEnter = async (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+        const reqImgUrl = imgUrl ? imgUrl : "https://icon-library.com/images/generic-profile-icon/generic-profile-icon-8.jpg";
+
+        const newUser = {
+            fullName,
+            username,
+            email,
+            imgUrl: reqImgUrl,
+            password,
+            confirmPassword,
+        };
+        const response = await dispatch(signUp(newUser));
+        if (response) {
+            setErrors(response.error.errors);
+        } else {
+            // console.log("not response", response)
+        }
+    }
+  }
+
   const classes = useStyles();
   return (
     <Box className="splashContainer">
@@ -167,6 +188,7 @@ const SignUpForm = () => {
                         variant="outlined"
                         color="secondary"
                         className={classes.textfield}
+                        onKeyDown={handleEnter}
                     />
                     <TextField
                         type='text'
@@ -178,6 +200,7 @@ const SignUpForm = () => {
                         variant="outlined"
                         color="secondary"
                         className={classes.textfield}
+                        onKeyDown={handleEnter}
                     />
                     <TextField
                         type='email'
@@ -189,6 +212,7 @@ const SignUpForm = () => {
                         variant="outlined"
                         color="secondary"
                         className={classes.textfield}
+                        onKeyDown={handleEnter}
                     />
                     <TextField
                         type='imgUrl'
@@ -199,6 +223,7 @@ const SignUpForm = () => {
                         variant="outlined"
                         color="secondary"
                         className={classes.textfield}
+                        onKeyDown={handleEnter}
                     />
                     <TextField
                         type='password'
@@ -210,6 +235,7 @@ const SignUpForm = () => {
                         variant="outlined"
                         color="secondary"
                         className={classes.textfield}
+                        onKeyDown={handleEnter}
                     />
                     <TextField
                         type='password'
@@ -221,6 +247,7 @@ const SignUpForm = () => {
                         variant="outlined"
                         color="secondary"
                         className={classes.textfield}
+                        onKeyDown={handleEnter}
                     />
                     <Box className={classes.buttonContainer}>
                         <Button onClick={handleSubmit} disableElevation className={classes.signUpButton}>Sign Up</Button>
